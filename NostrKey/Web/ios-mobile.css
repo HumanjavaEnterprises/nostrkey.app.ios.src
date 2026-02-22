@@ -1,0 +1,138 @@
+/* ios-mobile.css — Native mobile skin for NostrKey iOS WebView */
+
+/* Safe area defaults (overridden at runtime by Swift inset injection) */
+:root {
+    --safe-area-top: 0px;
+    --safe-area-bottom: 0px;
+}
+
+/* ===== TOP HEADER BAR (sidepanel.html) ===== */
+.app-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 52px;
+    padding: 0 16px;
+    padding-top: var(--safe-area-top);
+    background-color: #3e3d32;
+    border-bottom: 1px solid #49483e;
+    flex-shrink: 0;
+}
+
+.app-header img {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+}
+
+.app-header .app-header-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #f8f8f2;
+    letter-spacing: -0.01em;
+}
+
+/* ===== BOTTOM TAB BAR POLISH ===== */
+.sidepanel-tabs {
+    padding-bottom: var(--safe-area-bottom);
+}
+
+.tab-btn {
+    min-height: 60px;
+    padding: 6px 4px 8px;
+    position: relative;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Remove hover on touch devices */
+@media (hover: none) {
+    .tab-btn:hover {
+        background-color: transparent;
+        color: #b0b0a8;
+    }
+    .tab-btn.active:hover {
+        background-color: #272822;
+        color: #a6e22e;
+    }
+}
+
+/* Larger icons */
+.tab-btn svg {
+    width: 24px;
+    height: 24px;
+    margin-bottom: 3px;
+}
+
+/* Active tab top accent bar */
+.tab-btn.active::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 20%;
+    right: 20%;
+    height: 3px;
+    background-color: #a6e22e;
+    border-radius: 0 0 3px 3px;
+}
+
+/* Active tab label weight */
+.tab-btn.active {
+    font-weight: 700;
+}
+
+/* ===== SUB-PAGE NAVIGATION BAR ===== */
+.app-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    min-height: 52px;
+    padding: 0 8px;
+    padding-top: var(--safe-area-top);
+    background-color: #3e3d32;
+    border-bottom: 1px solid #49483e;
+}
+
+.app-navbar .navbar-back {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: none;
+    border: none;
+    color: #a6e22e;
+    cursor: pointer;
+    flex-shrink: 0;
+    -webkit-tap-highlight-color: transparent;
+    border-radius: 8px;
+}
+
+.app-navbar .navbar-back:active {
+    background-color: rgba(166, 226, 46, 0.1);
+}
+
+.app-navbar .navbar-back svg {
+    width: 22px;
+    height: 22px;
+}
+
+.app-navbar .navbar-title {
+    flex: 1;
+    font-size: 1.0625rem;
+    font-weight: 600;
+    color: #f8f8f2;
+    text-align: center;
+    padding-right: 44px; /* balance the back button width */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Body padding to account for fixed navbar */
+body.has-navbar {
+    padding-top: calc(52px + var(--safe-area-top)) !important;
+}
