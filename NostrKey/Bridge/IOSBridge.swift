@@ -244,10 +244,15 @@ class IOSBridge: NSObject, WKScriptMessageHandler {
     }
 
     private func escapeForJS(_ string: String) -> String {
-        // Use JSONSerialization to produce a properly quoted JS string
-        if let data = try? JSONSerialization.data(withJSONObject: string),
-           let quoted = String(data: data, encoding: .utf8) {
-            return quoted
+        // JSONSerialization requires a top-level array/dict, so wrap in array
+        // then extract the quoted string from the result: ["escaped"] → "escaped"
+        if let data = try? JSONSerialization.data(withJSONObject: [string]),
+           let json = String(data: data, encoding: .utf8) {
+            // json is like: ["the \"escaped\" string"]
+            // Drop the leading [ and trailing ]
+            let start = json.index(after: json.startIndex)
+            let end = json.index(before: json.endIndex)
+            return String(json[start..<end])
         }
         // Fallback: manual escaping
         let escaped = string
