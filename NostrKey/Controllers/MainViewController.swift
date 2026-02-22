@@ -115,21 +115,8 @@ class MainViewController: UIViewController {
     }
 
     // MARK: - Insets
-
-    override func viewSafeAreaInsetsDidChange() {
-        super.viewSafeAreaInsetsDidChange()
-        injectInsets()
-    }
-
-    private func injectInsets() {
-        let top = Int(view.safeAreaInsets.top)
-        let bottom = Int(view.safeAreaInsets.bottom)
-        let js = """
-        document.documentElement.style.setProperty('--safe-area-top','\(top)px');
-        document.documentElement.style.setProperty('--safe-area-bottom','\(bottom)px');
-        """
-        uiWebView.evaluateJavaScript(js, completionHandler: nil)
-    }
+    // Safe area insets are handled natively by CSS env(safe-area-inset-*)
+    // via viewport-fit=cover in the HTML meta tags. No JS injection needed.
 
     // MARK: - Navigation
 
@@ -191,8 +178,6 @@ extension MainViewController: WKNavigationDelegate {
                 let webDir = uiURL.deletingLastPathComponent()
                 self.uiWebView.loadFileURL(uiURL, allowingReadAccessTo: webDir)
             }
-        } else if webView === uiWebView {
-            injectInsets()
         }
     }
 

@@ -1,9 +1,34 @@
 /* ios-mobile.css — Native mobile skin for NostrKey iOS WebView */
 
-/* Safe area defaults (overridden at runtime by Swift inset injection) */
+/* ===== iOS VIEWPORT FIX =====
+ * 100vh in WKWebView includes the area behind the status bar and home
+ * indicator, which causes the flex layout to overflow and pushes the
+ * bottom tab bar off screen. Fix by chaining height:100% from
+ * html → body → .sidepanel-layout so the layout fits the actual
+ * visible viewport.
+ *
+ * viewport-fit=cover (set in <meta viewport>) tells WKWebView to
+ * render edge-to-edge and enable env(safe-area-inset-*). */
+
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.sidepanel-layout {
+    height: 100% !important; /* override the inline 100vh */
+}
+
+/* Safe area: use native env() values from viewport-fit=cover,
+   fall back to the JS-injected custom properties */
 :root {
-    --safe-area-top: 0px;
-    --safe-area-bottom: 0px;
+    --safe-area-top: env(safe-area-inset-top, 0px);
+    --safe-area-bottom: env(safe-area-inset-bottom, 0px);
 }
 
 /* ===== TOP HEADER BAR (sidepanel.html) ===== */
@@ -135,4 +160,12 @@
 /* Body padding to account for fixed navbar */
 body.has-navbar {
     padding-top: calc(52px + var(--safe-area-top)) !important;
+}
+
+/* ===== SUB-PAGE SAFE AREA BOTTOM ===== */
+/* Sub-pages don't have a tab bar, so add bottom padding for home indicator */
+body.has-navbar .sidepanel-content,
+body.has-navbar > .container,
+body.has-navbar > main {
+    padding-bottom: var(--safe-area-bottom);
 }
