@@ -2,7 +2,7 @@
 
 > Native iOS wrapper for NostrKey — Nostr key management and encrypted vault on your phone.
 >
-> **Current release:** v1.0.4 · **Bundled extension:** [v1.5.0](https://github.com/HumanjavaEnterprises/nostrkey.browser.plugin.src/releases/tag/v1.5.0) · **Min iOS:** 16.0 · **License:** MIT
+> **Current release:** v1.1.0 · **Bundled extension:** [v1.5.2](https://github.com/HumanjavaEnterprises/nostrkey.browser.plugin.src/releases/tag/v1.5.2) · **Min iOS:** 16.0 · **License:** MIT
 
 > **NostrKey and Humanjava Enterprises Inc. do not have a cryptocurrency, token, or coin. Nor will there be one.** If anyone suggests or sells a cryptocurrency associated with this project, they are acting fraudulently. [Report scams](https://github.com/HumanjavaEnterprises/nostrkey.app.ios.src/issues).
 
@@ -18,7 +18,11 @@ This app runs the full [NostrKey browser extension](https://github.com/Humanjava
 - **API key vault** — encrypted secret storage with relay sync
 - **Master password** — keys encrypted at rest with configurable auto-lock
 - **QR code scanner** — scan npub/nsec/ncryptsec keys directly with the camera (AVFoundation)
+- **Lock screen QR code** — share your npub QR code without unlocking the app (bottom sheet)
+- **Lock screen npub display** — active profile's truncated npub shown on the lock screen with copy button
+- **Cross-app toggle** — "Allow Nostr cross apps" placeholder for future App Groups integration
 - **Native clipboard** — copy keys and npubs to the system clipboard
+- **Material-style toggle switches** — native-feel settings controls throughout the app
 - **Dark theme** — Monokai color scheme with safe-area insets for notches and home indicators
 
 ## Architecture
@@ -53,9 +57,11 @@ This app runs the full [NostrKey browser extension](https://github.com/Humanjava
 
 The app uses a **dual-WKWebView** architecture: an invisible background WebView handles message routing and key operations (same as the browser extension's background page), while the visible UI WebView renders the interface. An `IOSBridge` class implementing `WKScriptMessageHandler` bridges JavaScript calls to native iOS APIs. A polyfill layer (`ios-polyfill.js`) maps Chrome extension APIs (`chrome.storage`, `chrome.runtime`) to bridge calls via `webkit.messageHandlers.nostrkey.postMessage()`.
 
+The polyfill also handles mobile-specific enhancements: renaming the NIP-07 toggle for cross-app context, populating the lock screen npub via direct storage reads with inline bech32 encoding, and wiring the QR bottom sheet with on-demand QR generation via a standalone `qrcode.min.js` bundle.
+
 ## NIPs Supported
 
-All NIP support is provided by the bundled extension code (v1.5.0):
+All NIP support is provided by the bundled extension code (v1.5.2):
 
 | NIP | Feature | Status |
 |-----|---------|--------|
@@ -74,13 +80,17 @@ All NIP support is provided by the bundled extension code (v1.5.0):
 - [x] Full NostrKey extension UI (profiles, vault, settings, security)
 - [x] All NIP support listed above (via bundled extension code)
 - [x] QR code scanning for key import (AVFoundation)
+- [x] Lock screen QR code sharing (bottom sheet with on-demand generation)
+- [x] Lock screen npub display with copy-to-clipboard
 - [x] Native clipboard integration
 - [x] UserDefaults storage (persistent, private)
 - [x] Dark theme with safe-area insets
+- [x] Material-style toggle switches in Settings
 - [x] HTTPS-only for relay connections
 
 ### Planned
 - [ ] App Store listing
+- [ ] App Groups cross-app signing (iOS app ↔ Safari extension)
 - [ ] Biometric unlock (Face ID / Touch ID)
 - [ ] Deep link handling (`nostr:` URIs)
 - [ ] Push notifications for signing requests
@@ -152,11 +162,12 @@ nostrkey.app.ios.src/
 │   ├── Bridge/
 │   │   └── IOSBridge.swift       # WKScriptMessageHandler bridge
 │   ├── Assets.xcassets/          # App icon + accent color
-│   └── Web/                      # Extension web assets (v1.5.0)
+│   └── Web/                      # Extension web assets (v1.5.2)
 │       ├── ios-polyfill.js       # Browser API → iOS bridge adapter
 │       ├── ios-mobile.css        # Mobile theming (Monokai)
+│       ├── qrcode.min.js         # Standalone QR code generator (IIFE bundle)
 │       ├── background.html       # Background page
-│       ├── sidepanel.html        # Main UI
+│       ├── sidepanel.html        # Main UI (lock screen, QR bottom sheet)
 │       └── ...                   # Sub-pages, JS bundles, images
 └── screenshots/
 ```

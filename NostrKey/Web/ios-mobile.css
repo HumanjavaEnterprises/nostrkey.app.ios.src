@@ -1,5 +1,10 @@
 /* ios-mobile.css — Native mobile skin for NostrKey iOS WebView */
 
+/* Hide Experimental until ready */
+#open-experimental-btn {
+    display: none !important;
+}
+
 /* ===== iOS VIEWPORT FIX =====
  * viewport-fit=cover (set in <meta viewport>) tells WKWebView to
  * render edge-to-edge and enable env(safe-area-inset-*).
@@ -163,4 +168,52 @@ body.has-navbar .sidepanel-content,
 body.has-navbar > .container,
 body.has-navbar > main {
     padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* ===== LOCK SCREEN ===== */
+/* Safe area insets for lock screen content and footer */
+#locked-view .sidepanel-content {
+    padding-top: env(safe-area-inset-top, 0px);
+}
+#locked-view > div:last-child {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Repurpose NIP-07 toggle for "Allow Nostr cross apps" (coming with App Groups) */
+#locked-access-card > label {
+    opacity: 0.5;
+    pointer-events: none;
+}
+#nostr-access-status {
+    display: none !important;
+}
+
+/* QR bottom sheet overlay */
+#locked-qr-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 1000;
+    display: none;
+    align-items: flex-end;
+    justify-content: center;
+}
+#locked-qr-overlay.visible {
+    display: flex;
+}
+#locked-qr-sheet {
+    background: #3e3d32;
+    border-radius: 16px 16px 0 0;
+    padding: 24px;
+    padding-bottom: env(safe-area-inset-bottom, 16px);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+#locked-qr-sheet .sheet-handle {
+    width: 40px;
+    height: 4px;
+    background: #49483e;
+    border-radius: 2px;
+    margin: 0 auto 16px;
 }

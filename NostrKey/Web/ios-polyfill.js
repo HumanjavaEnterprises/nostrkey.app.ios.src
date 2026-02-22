@@ -311,8 +311,191 @@
         return bridgeCall('scanQR');
     };
 
-    // Wire the scan button once the DOM is ready
+    // Wire the scan button + lock screen enhancements once the DOM is ready
     document.addEventListener('DOMContentLoaded', function () {
+        // Override "Extension Locked" → "App Locked" for mobile
+        var lockedLabel = document.querySelector('#locked-view .text-lg.font-bold');
+        if (lockedLabel && lockedLabel.textContent.trim() === 'Extension Locked') {
+            lockedLabel.textContent = 'App Locked';
+        }
+
+        // Rename toggle for mobile cross-app context
+        var toggleLabel = document.querySelector('#locked-access-card label > span:last-child');
+        if (toggleLabel && toggleLabel.textContent.trim() === 'Allow Nostr access while locked') {
+            toggleLabel.textContent = 'Allow Nostr cross apps';
+        }
+
+        // Minimal bech32 encoder for npub display on lock screen
+        var BECH32_CHARSET = 'qpzry9x8gf2tvdw0s3jn54khce6mua7l';
+        function bech32Polymod(values) {
+            var GEN = [0x3b6a57b2, 0x26508e6d, 0x1ea119fa, 0x3d4233dd, 0x2a1462b3];
+            var chk = 1;
+            for (var i = 0; i < values.length; i++) {
+                var b = chk >> 25;
+                chk = ((chk & 0x1ffffff) << 5) ^ values[i];
+                for (var j = 0; j < 5; j++) {
+                    if ((b >> j) & 1) chk ^= GEN[j];
+                }
+            }
+            return chk;
+        }
+        function bech32HrpExpand(hrp) {
+            var ret = [];
+            for (var i = 0; i < hrp.length; i++) ret.push(hrp.charCodeAt(i) >> 5);
+            ret.push(0);
+            for (var i = 0; i < hrp.length; i++) ret.push(hrp.charCodeAt(i) & 31);
+            return ret;
+        }
+        function bech32Encode(hrp, data) {
+            var combined = bech32HrpExpand(hrp).concat(data).concat([0, 0, 0, 0, 0, 0]);
+            var mod = bech32Polymod(combined) ^ 1;
+            var checksum = [];
+            for (var i = 0; i < 6; i++) checksum.push((mod >> (5 * (5 - i))) & 31);
+            var all = data.concat(checksum);
+            var ret = hrp + '1';
+            for (var i = 0; i < all.length; i++) ret += BECH32_CHARSET.charAt(all[i]);
+            return ret;
+        }
+        function hexToNpub(hex) {
+            if (!hex || hex.length !== 64) return '';
+            var bytes = [];
+            for (var i = 0; i < hex.length; i += 2) {
+                bytes.push(parseInt(hex.substr(i, 2), 16));
+            }
+            // Convert 8-bit bytes to 5-bit groups
+            var data = [], acc = 0, bits = 0;
+            for (var i = 0; i < bytes.length; i++) {
+                acc = (acc << 8) | bytes[i];
+                bits += 8;
+                while (bits >= 5) {
+                    bits -= 5;
+                    data.push((acc >> bits) & 31);
+                }
+            }
+            if (bits > 0) data.push((acc << (5 - bits)) & 31);
+            return bech32Encode('npub', data);
+        }
+
+        // Ensure locked-profile-npub is populated from storage
+        // The build JS may clear it (state.lockedProfileNpub can be empty),
+        // so we cache the npub and re-fill whenever the element goes blank.
+        var lockedNpubEl = document.getElementById('locked-profile-npub');
+        if (lockedNpubEl) {
+            var cachedTruncNpub = '';
+            var npubFillPending = false;
+
+            function fetchAndCacheNpub() {
+                if (npubFillPending) return;
+                npubFillPending = true;
+                window.browser.storage.local.get({ profiles: [], profileIndex: 0 }).then(function (data) {
+                    npubFillPending = false;
+                    var profiles = data.profiles || [];
+                    var idx = data.profileIndex || 0;
+                    var profile = profiles[idx];
+                    if (!profile || !profile.pubKey) return;
+                    var npub = hexToNpub(profile.pubKey);
+                    if (npub) {
+                        cachedTruncNpub = npub.slice(0, 12) + '...' + npub.slice(-8);
+                        if (!lockedNpubEl.textContent.trim()) {
+                            lockedNpubEl.textContent = cachedTruncNpub;
+                        }
+                    }
+                }).catch(function () { npubFillPending = false; });
+            }
+
+            // Watch the npub element — re-fill whenever build JS clears it
+            var npubObserver = new MutationObserver(function () {
+                if (!lockedNpubEl.textContent.trim() && cachedTruncNpub) {
+                    lockedNpubEl.textContent = cachedTruncNpub;
+                } else if (!cachedTruncNpub) {
+                    fetchAndCacheNpub();
+                }
+            });
+            npubObserver.observe(lockedNpubEl, { childList: true, characterData: true, subtree: true });
+
+            // Initial fetch
+            fetchAndCacheNpub();
+        }
+
+        // Wire QR bottom sheet
+        var qrBtn = document.getElementById('locked-qr-btn');
+        var qrOverlay = document.getElementById('locked-qr-overlay');
+        var qrCloseBtn = document.getElementById('locked-qr-close-btn');
+        var qrImage = document.getElementById('locked-qr-image');
+        var qrNpub = document.getElementById('locked-qr-npub');
+        var qrPrompt = document.getElementById('locked-qr-prompt');
+        var qrContent = document.getElementById('locked-qr-content');
+        var qrReady = false;
+
+        if (qrBtn && qrOverlay) {
+            function showQrSheet(ready) {
+                if (qrPrompt) qrPrompt.style.display = ready ? 'none' : '';
+                if (qrContent) qrContent.style.display = ready ? '' : 'none';
+                qrOverlay.classList.add('visible');
+            }
+
+            // Watch for first unlock — marks QR as ready for the session
+            var unlockedView = document.getElementById('unlocked-view');
+            if (unlockedView) {
+                var qrObserver = new MutationObserver(function () {
+                    if (!unlockedView.classList.contains('hidden')) {
+                        qrReady = true;
+                        qrObserver.disconnect();
+                    }
+                });
+                qrObserver.observe(unlockedView, { attributes: true, attributeFilter: ['class'] });
+            }
+
+            qrBtn.addEventListener('click', function () {
+                if (!qrReady) {
+                    showQrSheet(false);
+                    return;
+                }
+                // Try existing QR from unlocked view first
+                var mainQrImg = document.getElementById('qr-image');
+                if (mainQrImg && mainQrImg.src && mainQrImg.src.startsWith('data:')) {
+                    qrImage.src = mainQrImg.src;
+                    var npubEl = document.getElementById('locked-profile-npub');
+                    if (npubEl && qrNpub) qrNpub.textContent = npubEl.textContent;
+                    showQrSheet(true);
+                    return;
+                }
+                // Generate QR on demand — get full npub from bridge
+                window.browser.runtime.sendMessage({ kind: 'getActiveProfileInfo' }).then(function (info) {
+                    if (!info || !info.npub) { showQrSheet(false); return; }
+                    if (qrNpub) {
+                        var n = info.npub;
+                        qrNpub.textContent = n.length > 20 ? n.slice(0, 12) + '...' + n.slice(-8) : n;
+                    }
+                    if (typeof QRCode !== 'undefined' && QRCode.toDataURL) {
+                        QRCode.toDataURL(info.npub.toUpperCase(), {
+                            width: 200, margin: 2,
+                            color: { dark: '#a6e22e', light: '#272822' }
+                        }, function (err, url) {
+                            if (!err && url) qrImage.src = url;
+                            showQrSheet(!err && !!url);
+                        });
+                    } else {
+                        showQrSheet(false);
+                    }
+                }).catch(function () {
+                    showQrSheet(false);
+                });
+            });
+
+            if (qrCloseBtn) {
+                qrCloseBtn.addEventListener('click', function () {
+                    qrOverlay.classList.remove('visible');
+                });
+            }
+            // Tap overlay background to dismiss
+            qrOverlay.addEventListener('click', function (e) {
+                if (e.target === qrOverlay) {
+                    qrOverlay.classList.remove('visible');
+                }
+            });
+        }
+
         var scanBtn = document.getElementById('scan-qr-btn');
         if (!scanBtn) return;
         // Only reveal on iOS (webkit bridge exists)

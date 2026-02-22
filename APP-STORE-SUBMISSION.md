@@ -24,7 +24,7 @@ This document contains all the information needed to submit NostrKey for iOS to 
 
 ### Promotional Text (170 chars, can update without new build)
 ```
-Manage your Nostr keys, sign events, and store encrypted documents — all on your phone. Master password, QR scanner, and NIP-44/46 support built in.
+Manage your Nostr keys, sign events, and store encrypted documents — all on your phone. Lock screen QR sharing, master password, QR scanner, and NIP-44/46 support built in.
 ```
 
 ### Keywords (100 chars, comma-separated)
@@ -48,6 +48,8 @@ KEY FEATURES
 • API key vault — encrypted secret storage with relay sync
 • Master password — keys encrypted at rest with configurable auto-lock (5/15/30/60 min)
 • QR code scanner — scan npub, nsec, or ncryptsec keys with your camera
+• Lock screen QR code — share your npub QR code without unlocking the app
+• Lock screen profile display — see your active profile name and npub at a glance
 • Dark theme — Monokai color scheme designed for key management
 • Relay configuration — connect to your preferred Nostr relays
 
@@ -105,10 +107,12 @@ Select: **Data Not Collected**
 - Resolution: 1320x2868
 - Located: `screenshots/`
 - Screens to capture:
-  1. Home — profile list with QR code
-  2. Vault — encrypted document list
-  3. Settings — security & relay config
-  4. QR Scanner — camera view (device only)
+  1. Lock screen — active profile with npub and "Show QR Code" button
+  2. Lock screen QR — bottom sheet with npub QR code
+  3. Home — profile list with QR code
+  4. Vault — encrypted document list
+  5. Settings — security & relay config with toggle switches
+  6. QR Scanner — camera view (device only)
 
 #### iPhone 6.7" (optional — covers iPhone 15 Pro Max, 14 Pro Max)
 - Resolution: 1290x2796
@@ -135,11 +139,14 @@ Key functionality:
 
 To test:
 1. Launch the app — a default profile is created automatically
-2. The "Secure Your Vault" prompt lets you set up a master password
-3. Tap the profile to view npub, QR code, and edit options
-4. Use the Vault tab to create encrypted documents
-5. Use the Relays tab to configure relay connections
-6. Use Settings for security options (master password, auto-lock timeout)
+2. The lock screen shows your active profile name, truncated npub, and a "Show QR Code" button
+3. Tap "Show QR Code" before unlocking — a bottom sheet prompts you to unlock first
+4. The "Secure Your Vault" prompt lets you set up a master password
+5. After unlocking, tap "Show QR Code" — the bottom sheet displays your npub QR code
+6. Tap the profile to view npub, QR code, and edit options
+7. Use the Vault tab to create encrypted documents
+8. Use the Relays tab to configure relay connections
+9. Use Settings for security options (master password, auto-lock timeout, toggle switches)
 
 No external account, server, or subscription is needed. All data is stored locally in the app sandbox. Network connections go only to user-configured Nostr relays.
 
@@ -236,5 +243,5 @@ xcodebuild -exportArchive \
 
 ---
 
-*Last updated: February 21, 2026*
+*Last updated: February 22, 2026*
 *Published by Humanjava Enterprises Inc*
