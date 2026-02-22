@@ -47,6 +47,9 @@ class MainViewController: UIViewController {
         uiWebView.isOpaque = false
         uiWebView.backgroundColor = monokaiBg
         uiWebView.scrollView.backgroundColor = monokaiBg
+        // Prevent WKWebView from adding its own safe area insets —
+        // we handle them in CSS via env(safe-area-inset-*)
+        uiWebView.scrollView.contentInsetAdjustmentBehavior = .never
         uiWebView.navigationDelegate = self
         uiWebView.uiDelegate = self
         #if DEBUG
