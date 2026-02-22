@@ -179,10 +179,9 @@ body.has-navbar > main {
     padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
-/* Repurpose NIP-07 toggle for "Allow Nostr cross apps" (coming with App Groups) */
+/* Repurpose NIP-07 toggle for "Enable Nostr keys across apps" */
 #locked-access-card > label {
-    opacity: 0.5;
-    pointer-events: none;
+    /* enabled — toggle is functional */
 }
 #nostr-access-status {
     display: none !important;

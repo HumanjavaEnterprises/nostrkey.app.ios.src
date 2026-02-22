@@ -322,7 +322,7 @@
         // Rename toggle for mobile cross-app context
         var toggleLabel = document.querySelector('#locked-access-card label > span:last-child');
         if (toggleLabel && toggleLabel.textContent.trim() === 'Allow Nostr access while locked') {
-            toggleLabel.textContent = 'Allow Nostr cross apps';
+            toggleLabel.textContent = 'Enable Nostr keys across apps';
         }
 
         // Minimal bech32 encoder for npub display on lock screen
