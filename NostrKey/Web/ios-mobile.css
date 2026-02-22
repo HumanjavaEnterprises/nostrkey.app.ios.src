@@ -1,34 +1,28 @@
 /* ios-mobile.css — Native mobile skin for NostrKey iOS WebView */
 
 /* ===== iOS VIEWPORT FIX =====
- * 100vh in WKWebView includes the area behind the status bar and home
- * indicator, which causes the flex layout to overflow and pushes the
- * bottom tab bar off screen. Fix by chaining height:100% from
- * html → body → .sidepanel-layout so the layout fits the actual
- * visible viewport.
- *
  * viewport-fit=cover (set in <meta viewport>) tells WKWebView to
- * render edge-to-edge and enable env(safe-area-inset-*). */
+ * render edge-to-edge and enable env(safe-area-inset-*).
+ *
+ * We pin the sidepanel-layout with position:fixed to guarantee it
+ * fills the exact screen dimensions. The flex column inside it
+ * distributes header / content / tabs correctly. */
 
-html {
-    height: 100%;
-}
-
-body {
-    height: 100%;
+html, body {
     margin: 0;
     padding: 0;
+    overflow: hidden;
+    background-color: #272822;
 }
 
+/* Pin the layout to the full screen — no gaps */
 .sidepanel-layout {
-    height: 100% !important; /* override the inline 100vh */
-}
-
-/* Safe area: use native env() values from viewport-fit=cover,
-   fall back to the JS-injected custom properties */
-:root {
-    --safe-area-top: env(safe-area-inset-top, 0px);
-    --safe-area-bottom: env(safe-area-inset-bottom, 0px);
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    height: auto !important;
 }
 
 /* ===== TOP HEADER BAR (sidepanel.html) ===== */
@@ -38,7 +32,7 @@ body {
     gap: 10px;
     min-height: 52px;
     padding: 0 16px;
-    padding-top: var(--safe-area-top);
+    padding-top: env(safe-area-inset-top, 0px);
     background-color: #3e3d32;
     border-bottom: 1px solid #49483e;
     flex-shrink: 0;
@@ -57,9 +51,10 @@ body {
     letter-spacing: -0.01em;
 }
 
-/* ===== BOTTOM TAB BAR POLISH ===== */
+/* ===== BOTTOM TAB BAR ===== */
 .sidepanel-tabs {
-    padding-bottom: var(--safe-area-bottom);
+    padding-bottom: env(safe-area-inset-bottom, 0px) !important;
+    background-color: #3e3d32;
 }
 
 .tab-btn {
@@ -116,7 +111,7 @@ body {
     align-items: center;
     min-height: 52px;
     padding: 0 8px;
-    padding-top: var(--safe-area-top);
+    padding-top: env(safe-area-inset-top, 0px);
     background-color: #3e3d32;
     border-bottom: 1px solid #49483e;
 }
@@ -159,7 +154,7 @@ body {
 
 /* Body padding to account for fixed navbar */
 body.has-navbar {
-    padding-top: calc(52px + var(--safe-area-top)) !important;
+    padding-top: calc(52px + env(safe-area-inset-top, 0px)) !important;
 }
 
 /* ===== SUB-PAGE SAFE AREA BOTTOM ===== */
@@ -167,5 +162,5 @@ body.has-navbar {
 body.has-navbar .sidepanel-content,
 body.has-navbar > .container,
 body.has-navbar > main {
-    padding-bottom: var(--safe-area-bottom);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
 }
