@@ -2,16 +2,23 @@
 
 > Native iOS wrapper for NostrKey — Nostr key management and encrypted vault on your phone.
 >
-> **Current release:** v1.0.4 · **Min iOS:** 16.0 · **License:** MIT
+> **Current release:** v1.0.4 · **Bundled extension:** [v1.5.0](https://github.com/HumanjavaEnterprises/nostrkey.browser.plugin.src/releases/tag/v1.5.0) · **Min iOS:** 16.0 · **License:** MIT
 
 > **NostrKey and Humanjava Enterprises Inc. do not have a cryptocurrency, token, or coin. Nor will there be one.** If anyone suggests or sells a cryptocurrency associated with this project, they are acting fraudulently. [Report scams](https://github.com/HumanjavaEnterprises/nostrkey.app.ios.src/issues).
 
 ## What It Does
 
-- **WKWebView wrapper** — runs the full NostrKey extension UI natively on iOS
-- **QR code scanner** — scan npub/nsec/ncryptsec keys directly into the app (AVFoundation)
+This app runs the full [NostrKey browser extension](https://github.com/HumanjavaEnterprises/nostrkey.browser.plugin.src) UI natively on iOS, with native platform integrations:
+
+- **NIP-07 key management** — create, import, and manage multiple Nostr profiles
+- **NIP-44 / NIP-04 encryption** — modern ChaCha20-Poly1305 and legacy DM support
+- **NIP-46 nsecBunker** — remote signing, your private key never touches a browser
+- **NIP-49 encrypted export** — ncryptsec key backup and restore
+- **Encrypted .md vault** — zero-knowledge documents stored on relays (NIP-78)
+- **API key vault** — encrypted secret storage with relay sync
+- **Master password** — keys encrypted at rest with configurable auto-lock
+- **QR code scanner** — scan npub/nsec/ncryptsec keys directly with the camera (AVFoundation)
 - **Native clipboard** — copy keys and npubs to the system clipboard
-- **Local storage** — keys and settings stored in UserDefaults (never leaves the device)
 - **Dark theme** — Monokai color scheme with safe-area insets for notches and home indicators
 
 ## Architecture
@@ -46,11 +53,26 @@
 
 The app uses a **dual-WKWebView** architecture: an invisible background WebView handles message routing and key operations (same as the browser extension's background page), while the visible UI WebView renders the interface. An `IOSBridge` class implementing `WKScriptMessageHandler` bridges JavaScript calls to native iOS APIs. A polyfill layer (`ios-polyfill.js`) maps Chrome extension APIs (`chrome.storage`, `chrome.runtime`) to bridge calls via `webkit.messageHandlers.nostrkey.postMessage()`.
 
+## NIPs Supported
+
+All NIP support is provided by the bundled extension code (v1.5.0):
+
+| NIP | Feature | Status |
+|-----|---------|--------|
+| [NIP-01](https://github.com/nostr-protocol/nips/blob/master/01.md) | Basic protocol | Supported |
+| [NIP-04](https://github.com/nostr-protocol/nips/blob/master/04.md) | Encrypted DMs v1 | Supported (deprecated) |
+| [NIP-07](https://github.com/nostr-protocol/nips/blob/master/07.md) | Browser extension API | Supported (via polyfill) |
+| [NIP-19](https://github.com/nostr-protocol/nips/blob/master/19.md) | Bech32 encoding | Supported |
+| [NIP-44](https://github.com/nostr-protocol/nips/blob/master/44.md) | Encrypted messaging v2 | Supported |
+| [NIP-46](https://github.com/nostr-protocol/nips/blob/master/46.md) | Nostr Connect (bunker) | Supported |
+| [NIP-49](https://github.com/nostr-protocol/nips/blob/master/49.md) | Encrypted key export | Supported |
+| [NIP-78](https://github.com/nostr-protocol/nips/blob/master/78.md) | App-specific data (vault) | Supported |
+
 ## Status
 
 ### Working
 - [x] Full NostrKey extension UI (profiles, vault, settings, security)
-- [x] NIP-07, NIP-04, NIP-19, NIP-44, NIP-46, NIP-49 support (via extension code)
+- [x] All NIP support listed above (via bundled extension code)
 - [x] QR code scanning for key import (AVFoundation)
 - [x] Native clipboard integration
 - [x] UserDefaults storage (persistent, private)
@@ -101,7 +123,7 @@ xcodegen generate
 
 # Build for simulator
 xcodebuild -project NostrKey.xcodeproj -scheme NostrKey \
-    -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest' \
+    -destination 'platform=iOS Simulator,name=iPhone 17 Pro,OS=latest' \
     -configuration Debug build
 
 # Or open in Xcode
@@ -130,7 +152,7 @@ nostrkey.app.ios.src/
 │   ├── Bridge/
 │   │   └── IOSBridge.swift       # WKScriptMessageHandler bridge
 │   ├── Assets.xcassets/          # App icon + accent color
-│   └── Web/                      # Extension web assets
+│   └── Web/                      # Extension web assets (v1.5.0)
 │       ├── ios-polyfill.js       # Browser API → iOS bridge adapter
 │       ├── ios-mobile.css        # Mobile theming (Monokai)
 │       ├── background.html       # Background page
@@ -143,11 +165,15 @@ nostrkey.app.ios.src/
 
 This app does not collect any user data or transmit any data over a network connection except to Nostr relays you explicitly configure. All private key data is stored locally in UserDefaults and never leaves the device. Camera access is only used for QR code scanning and is not required.
 
-## Relationship to Browser Extension
+## NostrKey Ecosystem
 
-This iOS app wraps the same web UI as the [NostrKey browser extension](https://github.com/HumanjavaEnterprises/nostrkey.browser.plugin.src). The extension's HTML/JS/CSS assets are bundled into the app and run inside WKWebViews. The `IOSBridge` + polyfill layer translates Chrome extension APIs (`chrome.storage.local`, `chrome.runtime.sendMessage`) into native iOS equivalents.
+| Platform | Repo | Description |
+|----------|------|-------------|
+| **Browser** | [nostrkey.browser.plugin.src](https://github.com/HumanjavaEnterprises/nostrkey.browser.plugin.src) | Chrome + Safari extension (the source of all UI/JS) |
+| **Android** | [nostrkey.app.android.src](https://github.com/HumanjavaEnterprises/nostrkey.app.android.src) | Native Android app (dual-WebView + AndroidBridge) |
+| **iOS** | [nostrkey.app.ios.src](https://github.com/HumanjavaEnterprises/nostrkey.app.ios.src) | Native iOS app (dual-WKWebView + IOSBridge) — this repo |
 
-This is **not** the Safari extension companion app (found in `nostrkey.browser.plugin.src/apple/`). This is a standalone iOS app that runs the full NostrKey UI independently.
+Both mobile apps bundle the browser extension's HTML/JS/CSS assets and run them inside WebViews. A platform-specific polyfill layer translates Chrome extension APIs (`chrome.storage.local`, `chrome.runtime.sendMessage`) into native equivalents. The apps are independent of the Safari extension companion app found in `nostrkey.browser.plugin.src/apple/`.
 
 Key differences from the browser extension:
 - Storage uses iOS UserDefaults instead of `chrome.storage`
