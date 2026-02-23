@@ -1,0 +1,2 @@
+# Compiled click binary (rebuild with: swiftc tools/click.swift -o tools/click)
+tools/click

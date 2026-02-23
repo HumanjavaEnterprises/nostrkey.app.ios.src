@@ -1,0 +1,107 @@
+{
+  "platform": "ios",
+  "device": {
+    "name": "iPhone 17 Pro Max",
+    "screen_size": "1320x2868",
+    "screenshot_size": "1320x2868",
+    "density": "3x",
+    "notes": "UDID discovered at runtime via xcrun simctl list devices booted"
+  },
+  "simulator_window": {
+    "notes": "macOS screen coordinates of the Simulator.app window. Recalibrate with --calibrate if window is moved.",
+    "position": { "x": 960, "y": 201 },
+    "size": { "width": 494, "height": 1054 }
+  },
+  "click_method": {
+    "type": "cgevent",
+    "tool": "tools/click",
+    "source": "tools/click.swift",
+    "compile": "swiftc tools/click.swift -o tools/click",
+    "notes": "simctl has no tap command. CGEvent sends mouse click at macOS screen coordinates into Simulator window."
+  },
+  "text_input": {
+    "method": "clipboard_paste",
+    "notes": "keyboard type does not work with WKWebView. Use: xcrun simctl pbcopy <udid> then AppleScript Cmd+V",
+    "steps": [
+      "echo 'text' | xcrun simctl pbcopy <udid>",
+      "osascript -e 'tell application \"System Events\" to keystroke \"v\" using command down'"
+    ]
+  },
+  "status_bar": {
+    "command": "xcrun simctl status_bar <udid> override --time \"9:41\" --batteryState charged --batteryLevel 100 --wifiBars 3 --cellularBars 4",
+    "clear": "xcrun simctl status_bar <udid> clear"
+  },
+  "tab_bar": {
+    "notes": "macOS screen coordinates (y is absolute). Recalibrate if simulator window moves.",
+    "y": 1185,
+    "tabs": {
+      "home":     { "x": 1009, "index": 0 },
+      "vault":    { "x": 1108, "index": 1 },
+      "apps":     { "x": 1207, "index": 2 },
+      "relays":   { "x": 1306, "index": 3 },
+      "settings": { "x": 1405, "index": 4 }
+    }
+  },
+  "screenshots_sequence": [
+    {
+      "id": "01-lock-screen",
+      "title": "Lock Screen",
+      "description": "Lock screen with profile card, npub, toggle, Show QR button",
+      "pre_actions": [
+        { "type": "terminate", "bundle_id": "com.nostrkey.app" },
+        { "type": "launch", "bundle_id": "com.nostrkey.app" },
+        { "type": "wait", "seconds": 3 }
+      ],
+      "action": { "type": "none" },
+      "wait_after": 1,
+      "filename": "01-lock-screen.png"
+    },
+    {
+      "id": "02-lock-screen-qr",
+      "title": "Lock Screen QR",
+      "description": "QR bottom sheet or Unlock to enable prompt",
+      "pre_actions": [],
+      "action": { "type": "click_target", "target": "show_qr_button", "x": 1207, "y": 950 },
+      "wait_after": 2,
+      "filename": "02-lock-screen-qr.png"
+    },
+    {
+      "id": "03-home",
+      "title": "Home Tab",
+      "description": "Home tab with profile list and QR code",
+      "pre_actions": [
+        { "type": "dismiss_sheet", "notes": "swipe down or tap outside to dismiss QR sheet" }
+      ],
+      "action": { "type": "click_tab", "tab": "home" },
+      "wait_after": 2,
+      "filename": "03-home.png"
+    },
+    {
+      "id": "04-vault",
+      "title": "Vault Tab",
+      "description": "Vault tab with encrypted documents",
+      "pre_actions": [],
+      "action": { "type": "click_tab", "tab": "vault" },
+      "wait_after": 2,
+      "filename": "04-vault.png"
+    },
+    {
+      "id": "05-relays",
+      "title": "Relays Tab",
+      "description": "Relays tab with relay configuration",
+      "pre_actions": [],
+      "action": { "type": "click_tab", "tab": "relays" },
+      "wait_after": 2,
+      "filename": "05-relays.png"
+    },
+    {
+      "id": "06-settings",
+      "title": "Settings Tab",
+      "description": "Settings tab with security, sync, advanced options",
+      "pre_actions": [],
+      "action": { "type": "click_tab", "tab": "settings" },
+      "wait_after": 2,
+      "filename": "06-settings.png"
+    }
+  ]
+}
