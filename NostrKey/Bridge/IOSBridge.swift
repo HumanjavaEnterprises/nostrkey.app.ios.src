@@ -146,8 +146,56 @@ class IOSBridge: NSObject, WKScriptMessageHandler {
         saveStorage(storage)
         resolveOnSelf(callbackId: callbackId, json: "{}")
 
+        // Write-through to App Group shared storage for Safari extension sync
+        syncProfilesToSharedStorage(items: items)
+
         // Notify both WebViews about the change
         notifyStorageChanged(items: items)
+    }
+
+    // MARK: - App Group Sync
+
+    /// When profiles are written to local storage, also write metadata to the
+    /// shared App Group container and private keys to the shared Keychain.
+    private func syncProfilesToSharedStorage(items: [String: Any]) {
+        guard let profilesArray = items["profiles"] as? [[String: Any]] else { return }
+
+        // Track which profile IDs are still present
+        var currentIds = Set<String>()
+        var sharedProfiles: [[String: Any]] = []
+
+        for var profile in profilesArray {
+            // Use existing id or pubKey as stable identifier
+            let profileId = profile["id"] as? String
+                ?? profile["pubKey"] as? String
+                ?? UUID().uuidString
+
+            currentIds.insert(profileId)
+
+            // Save private key to shared Keychain separately
+            if let privKey = profile["privKey"] as? String, !privKey.isEmpty {
+                // Only sync plaintext hex keys — skip encrypted blobs
+                if privKey.count == 64, privKey.range(of: "^[0-9a-f]+$", options: .regularExpression) != nil {
+                    SharedKeychain.shared.savePrivateKey(profileId: profileId, privKey: privKey)
+                }
+            }
+
+            // Strip private key from shared metadata
+            profile.removeValue(forKey: "privKey")
+
+            // Ensure the profile has a stable id for cross-app matching
+            profile["id"] = profileId
+            profile["lastSyncedAt"] = ISO8601DateFormatter().string(from: Date())
+            sharedProfiles.append(profile)
+        }
+
+        SharedStorage.shared.saveProfiles(sharedProfiles)
+
+        // Clean up Keychain entries for profiles that were removed
+        let existingIds = SharedKeychain.shared.listProfileIds()
+        for id in existingIds where !currentIds.contains(id) {
+            SharedKeychain.shared.deletePrivateKey(profileId: id)
+        }
     }
 
     private func handleStorageRemove(callbackId: String, keysJson: String) {

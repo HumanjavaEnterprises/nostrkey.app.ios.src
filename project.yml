@@ -14,6 +14,7 @@ targets:
       - path: NostrKey/App
       - path: NostrKey/Controllers
       - path: NostrKey/Bridge
+      - path: NostrKey/Storage
       - path: NostrKey/Assets.xcassets
       - path: NostrKey/Web
         type: folder
@@ -32,4 +33,5 @@ targets:
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
         SWIFT_VERSION: "5.9"
         CODE_SIGN_STYLE: Automatic
+        CODE_SIGN_ENTITLEMENTS: NostrKey/NostrKey.entitlements
         ALWAYS_SEARCH_USER_PATHS: NO
