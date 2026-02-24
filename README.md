@@ -194,6 +194,12 @@ Key differences from the browser extension:
 - No `window.nostr` injection (not a browser extension context)
 - No cross-device sync (no iCloud storage.sync equivalent yet)
 
+### Profile sharing: iOS vs Android
+
+iOS App Groups allow the iOS app and the Safari extension to share a storage container automatically — profiles created in the app appear in the Safari extension with no user action required.
+
+Android has no equivalent of App Groups, so the Android app instead provides a **"Share to Browser"** button that encrypts the private key as an ncryptsec (NIP-49) and offers it via the system share sheet or clipboard for manual import into any browser extension.
+
 ## License
 
 MIT — see [LICENSE](LICENSE)
