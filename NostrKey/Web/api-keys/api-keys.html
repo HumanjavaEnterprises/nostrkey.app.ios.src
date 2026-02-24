@@ -10,15 +10,7 @@
         <title>API Key Vault</title>
     </head>
 
-    <body class="p-4 md:p-8 lg:p-16 max-w-5xl mx-auto has-navbar">
-        <nav class="app-navbar">
-            <button id="close-btn" class="navbar-back" type="button" title="Back" aria-label="Back">
-                <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M19 12H5M12 19l-7-7 7-7"></path>
-                </svg>
-            </button>
-            <span class="navbar-title">API Key Vault</span>
-        </nav>
+    <body class="p-4 md:p-8 lg:p-16 max-w-5xl mx-auto">
         <!-- Locked gate -->
         <div id="vault-locked-gate" style="display:none;">
             <div style="display:flex;flex-direction:column;align-items:center;gap:16px;padding:64px 16px;">
@@ -35,6 +27,14 @@
 
         <!-- Main content (hidden until password check passes) -->
         <div id="vault-main-content" style="display:none;">
+        <div class="flex items-start justify-between mb-4">
+            <h1 class="section-header">API Key Vault</h1>
+            <button id="close-btn" class="button" type="button" title="Close" aria-label="Close" style="min-width:auto;padding:8px 12px;">
+                <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
         <p class="text-sm italic">
             Store API keys encrypted to your Nostr key. Synced via NIP-78 relays
             or kept local-only.
