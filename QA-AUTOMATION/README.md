@@ -75,6 +75,20 @@ echo "text" | xcrun simctl pbcopy <udid>
 osascript -e 'tell application "System Events" to keystroke "v" using command down'
 ```
 
+## Resizing Screenshots
+
+After capturing, resize for review and store submission:
+
+```bash
+./QA-AUTOMATION/resize-screenshots.sh              # Both review + store sizes
+./QA-AUTOMATION/resize-screenshots.sh --review     # Max 2000px height only
+./QA-AUTOMATION/resize-screenshots.sh --appstore   # Store sizes only
+```
+
+Output goes to `screenshots/review/` and `screenshots/appstore/` (gitignored).
+
+Requires Python 3 with Pillow (`pip3 install Pillow`).
+
 ## Known Limitations
 
 - Coordinates are absolute macOS screen positions — moving the Simulator window requires recalibration
