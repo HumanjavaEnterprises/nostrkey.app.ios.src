@@ -35,3 +35,7 @@ Package.resolved
 # Miscellaneous
 *.swp
 *~
+
+# QA generated screenshots
+QA-AUTOMATION/screenshots/review/
+QA-AUTOMATION/screenshots/appstore/
