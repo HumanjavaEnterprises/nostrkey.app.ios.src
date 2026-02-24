@@ -517,18 +517,23 @@
                             <h2 class="section-title">Security</h2>
                             <button id="settings-security-btn" class="button w-full mb-2">Master Password</button>
                             <button id="settings-autolock-btn" class="button w-full">Auto-lock Settings</button>
-                            <label class="flex items-center gap-3 cursor-pointer" style="padding:4px 0;margin-top:8px;">
-                                <input id="frame-protection-toggle" type="checkbox"
-                                       style="width:18px;height:18px;accent-color:#a6e22e;" />
+                            <label class="flex items-center justify-between cursor-pointer" style="padding:4px 0;margin-top:16px;">
                                 <span style="color:#f8f8f2;font-size:14px;">Block cross-origin frames</span>
+                                <span class="toggle-switch">
+                                    <input id="frame-protection-toggle" type="checkbox" />
+                                    <span class="toggle-slider"></span>
+                                </span>
                             </label>
                             <p id="frame-protection-status" style="color:#b0b0a8;font-size:0.8rem;margin-top:4px;"></p>
                         </div>
                         <div class="section-card">
                             <h2 class="section-title">Sync</h2>
-                            <label class="flex items-center gap-3 cursor-pointer" style="padding:4px 0;">
-                                <input id="sync-toggle" type="checkbox" style="width:18px;height:18px;accent-color:#a6e22e;" />
+                            <label class="flex items-center justify-between cursor-pointer" style="padding:4px 0;">
                                 <span style="color:#f8f8f2;font-size:14px;">Sync across devices</span>
+                                <span class="toggle-switch">
+                                    <input id="sync-toggle" type="checkbox" />
+                                    <span class="toggle-slider"></span>
+                                </span>
                             </label>
                             <p id="sync-status-text" style="color:#b0b0a8;font-size:0.8rem;margin-top:4px;"></p>
                         </div>

@@ -30,6 +30,11 @@ html, body {
     height: auto !important;
 }
 
+/* ===== SAFE AREA: push content below status bar / Dynamic Island ===== */
+.sidepanel-content {
+    padding-top: calc(16px + env(safe-area-inset-top, 0px)) !important;
+}
+
 /* ===== TOP HEADER BAR (sidepanel.html) ===== */
 .app-header {
     display: flex;
