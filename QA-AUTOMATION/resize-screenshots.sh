@@ -81,22 +81,19 @@ fi
 if [ "$do_appstore" = true ]; then
   echo "Creating App Store screenshots..."
 
-  # App Store required sizes:
+  # App Store required sizes (name:width:height):
   #   6.9" iPhone (iPhone 17 Pro Max): 1320x2868
   #   6.7" iPhone (iPhone 15 Pro Max): 1290x2796
   #   6.7" iPhone (iPhone 14 Pro Max): 1284x2778
   #   6.5" iPhone (iPhone Xs Max etc): 1242x2688
   #   12.9" iPad Pro: 2048x2732
-  declare -A SIZES=(
-    ["phone-6.9"]="1320 2868"
-    ["phone-6.7"]="1290 2796"
-    ["phone-6.7b"]="1284 2778"
-    ["phone-6.5"]="1242 2688"
-    ["tablet-12.9"]="2048 2732"
-  )
+  SIZES="phone-6.9:1320:2868 phone-6.7:1290:2796 phone-6.7b:1284:2778 phone-6.5:1242:2688 tablet-12.9:2048:2732"
 
-  for size_name in "${!SIZES[@]}"; do
-    read -r TW TH <<< "${SIZES[$size_name]}"
+  for entry in $SIZES; do
+    size_name="${entry%%:*}"
+    rest="${entry#*:}"
+    TW="${rest%%:*}"
+    TH="${rest#*:}"
     mkdir -p "$APPSTORE_DIR/$size_name"
 
     for f in "$CURRENT_DIR"/*.png; do
