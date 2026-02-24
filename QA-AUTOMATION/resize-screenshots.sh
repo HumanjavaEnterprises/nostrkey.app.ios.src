@@ -5,7 +5,7 @@ set -euo pipefail
 #
 # Creates two output folders from screenshots/current/:
 #   screenshots/review/   — max 2000px tall (for Claude Code / conversation review)
-#   screenshots/appstore/ — App Store sizes (6.9" 1320x2868, 6.7" 1290x2796, 12.9" iPad 2048x2732)
+#   screenshots/appstore/ — App Store sizes (6.9", 6.7", 6.5", 12.9")
 #
 # Usage:
 #   ./resize-screenshots.sh              # Process all screenshots
@@ -84,10 +84,14 @@ if [ "$do_appstore" = true ]; then
   # App Store required sizes:
   #   6.9" iPhone (iPhone 17 Pro Max): 1320x2868
   #   6.7" iPhone (iPhone 15 Pro Max): 1290x2796
+  #   6.7" iPhone (iPhone 14 Pro Max): 1284x2778
+  #   6.5" iPhone (iPhone Xs Max etc): 1242x2688
   #   12.9" iPad Pro: 2048x2732
   declare -A SIZES=(
     ["phone-6.9"]="1320 2868"
     ["phone-6.7"]="1290 2796"
+    ["phone-6.7b"]="1284 2778"
+    ["phone-6.5"]="1242 2688"
     ["tablet-12.9"]="2048 2732"
   )
 
