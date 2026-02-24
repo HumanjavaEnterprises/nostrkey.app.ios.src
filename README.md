@@ -182,7 +182,7 @@ This app does not collect any user data or transmit any data over a network conn
 
 | Platform | Repo | Description |
 |----------|------|-------------|
-| **Browser** | [nostrkey.browser.plugin.src](https://github.com/HumanjavaEnterprises/nostrkey.browser.plugin.src) | Chrome + Safari extension (the source of all UI/JS) |
+| **Browser** | [nostrkey.browser.plugin.src](https://github.com/HumanjavaEnterprises/nostrkey.browser.plugin.src) | Chrome + Safari extension — [Chrome Web Store](https://chromewebstore.google.com/detail/nostrkey/cggakcmbihnpmcddkkfmoglgaocnmaop) |
 | **Android** | [nostrkey.app.android.src](https://github.com/HumanjavaEnterprises/nostrkey.app.android.src) | Native Android app (dual-WebView + AndroidBridge) |
 | **iOS** | [nostrkey.app.ios.src](https://github.com/HumanjavaEnterprises/nostrkey.app.ios.src) | Native iOS app (dual-WKWebView + IOSBridge) — this repo |
 
