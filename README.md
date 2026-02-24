@@ -2,7 +2,7 @@
 
 > Native iOS wrapper for NostrKey — Nostr key management and encrypted vault on your phone.
 >
-> **Current release:** v1.1.0 · **Bundled extension:** [v1.5.2](https://github.com/HumanjavaEnterprises/nostrkey.browser.plugin.src/releases/tag/v1.5.2) · **Min iOS:** 16.0 · **License:** MIT
+> **Current release:** v1.1.0 · **Bundled extension:** [v1.5.4](https://github.com/HumanjavaEnterprises/nostrkey.browser.plugin.src/releases/tag/v1.5.4) · **Min iOS:** 16.0 · **License:** MIT
 
 > **NostrKey and Humanjava Enterprises Inc. do not have a cryptocurrency, token, or coin. Nor will there be one.** If anyone suggests or sells a cryptocurrency associated with this project, they are acting fraudulently. [Report scams](https://github.com/HumanjavaEnterprises/nostrkey.app.ios.src/issues).
 
@@ -22,6 +22,8 @@ This app runs the full [NostrKey browser extension](https://github.com/Humanjava
 - **Lock screen npub display** — active profile's truncated npub shown on the lock screen with copy button
 - **Cross-app toggle** — "Allow Nostr cross apps" placeholder for future App Groups integration
 - **Native clipboard** — copy keys and npubs to the system clipboard
+- **Manage Nostr Keys** — master-detail key management page with JSON export/import
+- **Settings accordions** — settings grouped by App / Profile / General with collapsible sections
 - **Material-style toggle switches** — native-feel settings controls throughout the app
 - **Dark theme** — Monokai color scheme with safe-area insets for notches and home indicators
 
@@ -61,7 +63,7 @@ The polyfill also handles mobile-specific enhancements: renaming the NIP-07 togg
 
 ## NIPs Supported
 
-All NIP support is provided by the bundled extension code (v1.5.2):
+All NIP support is provided by the bundled extension code (v1.5.4):
 
 | NIP | Feature | Status |
 |-----|---------|--------|
@@ -77,8 +79,8 @@ All NIP support is provided by the bundled extension code (v1.5.2):
 ## Status
 
 ### Working
-- [x] Full NostrKey extension UI (profiles, vault, settings, security)
-- [x] All NIP support listed above (via bundled extension code)
+- [x] Full NostrKey extension UI (profiles, vault, settings, security, key management)
+- [x] All NIP support listed above (via bundled extension code v1.5.4)
 - [x] QR code scanning for key import (AVFoundation)
 - [x] Lock screen QR code sharing (bottom sheet with on-demand generation)
 - [x] Lock screen npub display with copy-to-clipboard
@@ -162,7 +164,7 @@ nostrkey.app.ios.src/
 │   ├── Bridge/
 │   │   └── IOSBridge.swift       # WKScriptMessageHandler bridge
 │   ├── Assets.xcassets/          # App icon + accent color
-│   └── Web/                      # Extension web assets (v1.5.2)
+│   └── Web/                      # Extension web assets (v1.5.4)
 │       ├── ios-polyfill.js       # Browser API → iOS bridge adapter
 │       ├── ios-mobile.css        # Mobile theming (Monokai)
 │       ├── qrcode.min.js         # Standalone QR code generator (IIFE bundle)
