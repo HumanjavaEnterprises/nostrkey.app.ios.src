@@ -2,7 +2,7 @@
 
 > Native iOS wrapper for NostrKey — Nostr key management and encrypted vault on your phone.
 >
-> **Current release:** v1.1.0 · **Bundled extension:** [v1.5.4](https://github.com/HumanjavaEnterprises/nostrkey.browser.plugin.src/releases/tag/v1.5.4) · **Min iOS:** 16.0 · **License:** MIT
+> **Current release:** [v1.1.1](https://github.com/HumanjavaEnterprises/nostrkey.app.ios.src/releases/tag/v1.1.1) · **Bundled extension:** [v1.5.4](https://github.com/HumanjavaEnterprises/nostrkey.browser.plugin.src/releases/tag/v1.5.4) · **Min iOS:** 16.0 · **License:** MIT
 
 > **NostrKey and Humanjava Enterprises Inc. do not have a cryptocurrency, token, or coin. Nor will there be one.** If anyone suggests or sells a cryptocurrency associated with this project, they are acting fraudulently. [Report scams](https://github.com/HumanjavaEnterprises/nostrkey.app.ios.src/issues).
 
