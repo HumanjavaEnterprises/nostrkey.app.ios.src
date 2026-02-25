@@ -101,27 +101,27 @@ execute_pre_actions() {
   local count
   count=$(echo "$entry" | jq '.pre_actions | length')
 
-  for ((i=0; i<count; i++)); do
+  for ((pi=0; pi<count; pi++)); do
     local action_type
-    action_type=$(echo "$entry" | jq -r ".pre_actions[$i].type")
+    action_type=$(echo "$entry" | jq -r ".pre_actions[$pi].type")
 
     case "$action_type" in
       terminate)
         local bundle_id
-        bundle_id=$(echo "$entry" | jq -r ".pre_actions[$i].bundle_id")
+        bundle_id=$(echo "$entry" | jq -r ".pre_actions[$pi].bundle_id")
         echo "  Terminating $bundle_id..."
         xcrun simctl terminate "$udid" "$bundle_id" 2>/dev/null || true
         sleep 1
         ;;
       launch)
         local bundle_id
-        bundle_id=$(echo "$entry" | jq -r ".pre_actions[$i].bundle_id")
+        bundle_id=$(echo "$entry" | jq -r ".pre_actions[$pi].bundle_id")
         echo "  Launching $bundle_id..."
         xcrun simctl launch "$udid" "$bundle_id"
         ;;
       wait)
         local seconds
-        seconds=$(echo "$entry" | jq -r ".pre_actions[$i].seconds")
+        seconds=$(echo "$entry" | jq -r ".pre_actions[$pi].seconds")
         echo "  Waiting ${seconds}s..."
         sleep "$seconds"
         ;;
