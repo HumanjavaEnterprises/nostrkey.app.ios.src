@@ -313,6 +313,56 @@
 
     // Wire the scan button + lock screen enhancements once the DOM is ready
     document.addEventListener('DOMContentLoaded', function () {
+        // ── Sub-page navbar injection ──────────────────────────────────
+        // Replace the inline H1 + X close button with a fixed iOS-style
+        // navigation bar using the .app-navbar CSS already in ios-mobile.css
+        var closeBtn = document.getElementById('close-btn');
+        if (closeBtn) {
+            // Get page title from the section-header H1 or <title>,
+            // with overrides for pages whose H1 doesn't match nav context
+            var pagePath = location.pathname.split('/').pop();
+            var titleOverrides = { 'full_settings.html': 'Settings' };
+            var titleEl = document.querySelector('.section-header');
+            var pageTitle = titleOverrides[pagePath]
+                || (titleEl ? titleEl.textContent.trim() : document.title);
+
+            // Build the navbar
+            var navbar = document.createElement('nav');
+            navbar.className = 'app-navbar';
+            navbar.innerHTML =
+                '<button class="navbar-back" id="close-btn" aria-label="Back">' +
+                '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" ' +
+                'stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">' +
+                '<path d="M15 18l-6-6 6-6"/>' +
+                '</svg>' +
+                '</button>' +
+                '<span class="navbar-title">' + pageTitle + '</span>';
+
+            // Wire the new back button to window.close() which navigates
+            // back to the sidepanel. The Swift side uses goBack() to pop
+            // the nav stack, restoring the sidepanel with the correct tab.
+            navbar.querySelector('.navbar-back').addEventListener('click', function () {
+                window.close();
+            });
+
+            // Remove old close button and its flex container
+            var oldContainer = closeBtn.closest('.flex.items-start');
+            if (oldContainer) {
+                oldContainer.remove();
+            } else {
+                closeBtn.remove();
+            }
+
+            // Remove standalone H1 if it survived (vault-gated pages)
+            if (titleEl && titleEl.parentNode) {
+                titleEl.remove();
+            }
+
+            // Insert navbar at top of body
+            document.body.insertBefore(navbar, document.body.firstChild);
+            document.body.classList.add('has-navbar');
+        }
+
         // Override "Extension Locked" → "App Locked" for mobile
         var lockedLabel = document.querySelector('#locked-view .text-lg.font-bold');
         if (lockedLabel && lockedLabel.textContent.trim() === 'Extension Locked') {

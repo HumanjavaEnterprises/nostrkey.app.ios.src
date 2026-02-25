@@ -132,6 +132,13 @@ class MainViewController: UIViewController {
             return
         }
 
+        // "Back" to sidepanel: pop the navigation stack so WKWebView's
+        // page cache restores the sidepanel with the correct tab active.
+        if url == "sidepanel.html" && uiWebView.canGoBack {
+            uiWebView.goBack()
+            return
+        }
+
         guard let webDir = Bundle.main.url(forResource: "background", withExtension: "html", subdirectory: "Web")?.deletingLastPathComponent() else { return }
 
         let resolved: URL
