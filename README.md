@@ -2,7 +2,7 @@
 
 > Native iOS app for NostrKey — Nostr key management and encrypted vault on your phone.
 >
-> **Current release:** [v1.1.1](https://github.com/HumanjavaEnterprises/nostrkey.app.ios.src/releases/tag/v1.1.1) · **Bundled extension:** [v1.5.4](https://github.com/HumanjavaEnterprises/nostrkey.browser.plugin.src/releases/tag/v1.5.4) · **Min iOS:** 16.0 · **License:** MIT
+> **Current release:** [v1.1.1](https://github.com/HumanjavaEnterprises/nostrkey.app.ios.src/releases/tag/v1.1.1) · **Bundled extension:** [v1.5.5](https://github.com/HumanjavaEnterprises/nostrkey.browser.plugin.src/releases/tag/v1.5.5) · **Min iOS:** 16.0 · **License:** MIT
 
 > **NostrKey and Humanjava Enterprises Inc. do not have a cryptocurrency, token, or coin. Nor will there be one.** If anyone suggests or sells a cryptocurrency associated with this project, they are acting fraudulently. [Report scams](https://github.com/HumanjavaEnterprises/nostrkey.app.ios.src/issues).
 
@@ -88,7 +88,7 @@ Lx7 / Vaiku                 LLM.being infrastructure
 
 ## NIPs Supported
 
-All NIP support is provided by the bundled extension code (v1.5.4):
+All NIP support is provided by the bundled extension code (v1.5.5):
 
 | NIP | Feature | Status |
 |-----|---------|--------|
@@ -105,7 +105,7 @@ All NIP support is provided by the bundled extension code (v1.5.4):
 
 ### Shipped
 - Full NostrKey extension UI (profiles, vault, settings, security, key management)
-- All NIP support listed above (via bundled extension code v1.5.4)
+- All NIP support listed above (via bundled extension code v1.5.5)
 - QR code scanning for key import (AVFoundation)
 - Lock screen QR code sharing (bottom sheet with on-demand generation)
 - Lock screen npub display with copy-to-clipboard
@@ -188,10 +188,9 @@ nostrkey.app.ios.src/
 │   ├── Bridge/
 │   │   └── IOSBridge.swift       # WKScriptMessageHandler bridge
 │   ├── Assets.xcassets/          # App icon + accent color
-│   └── Web/                      # Extension web assets (v1.5.4)
+│   └── Web/                      # Extension web assets (v1.5.5)
 │       ├── ios-polyfill.js       # Browser API → iOS bridge adapter
 │       ├── ios-mobile.css        # Mobile theming (Monokai)
-│       ├── qrcode.min.js         # Standalone QR code generator
 │       ├── background.html       # Background page
 │       ├── sidepanel.html        # Main UI (lock screen, QR bottom sheet)
 │       └── ...                   # Sub-pages, JS bundles, images

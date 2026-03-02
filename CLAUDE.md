@@ -7,7 +7,7 @@ NostrKey iOS app — native wrapper that runs the full NostrKey browser extensio
 Mobile surface for NostrKey — the key management layer. Same role as the browser extension but on iOS. Uses dual-WKWebView architecture with IOSBridge.swift bridging JS to native APIs.
 
 ## Current Version
-v1.1.1 — Bundled extension v1.5.4 — App Store submission in progress
+v1.1.1 — Bundled extension v1.5.5 — App Store submission in progress
 
 ## Tech Stack
 - Swift 5.9, Xcode 15.0+
