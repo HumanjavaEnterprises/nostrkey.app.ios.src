@@ -1,14 +1,14 @@
-# NostrKey for iOS
+# NostrKeep Signer for iOS
 
-> Native iOS app for NostrKey — Nostr key management and encrypted vault on your phone.
+> Native iOS app for NostrKeep Signer — Nostr key management and encrypted vault on your phone.
 >
 > **Current release:** [v1.1.1](https://github.com/HumanjavaEnterprises/nostrkey.app.ios.src/releases/tag/v1.1.1) · **Bundled extension:** [v1.5.5](https://github.com/HumanjavaEnterprises/nostrkey.browser.plugin.src/releases/tag/v1.5.5) · **Min iOS:** 16.0 · **License:** MIT
 
-> **NostrKey and Humanjava Enterprises Inc. do not have a cryptocurrency, token, or coin. Nor will there be one.** If anyone suggests or sells a cryptocurrency associated with this project, they are acting fraudulently. [Report scams](https://github.com/HumanjavaEnterprises/nostrkey.app.ios.src/issues).
+> **NostrKeep Signer and Humanjava Enterprises Inc. do not have a cryptocurrency, token, or coin. Nor will there be one.** If anyone suggests or sells a cryptocurrency associated with this project, they are acting fraudulently. [Report scams](https://github.com/HumanjavaEnterprises/nostrkey.app.ios.src/issues).
 
 ## What It Does
 
-This app runs the full [NostrKey browser extension](https://github.com/HumanjavaEnterprises/nostrkey.browser.plugin.src) UI natively on iOS, with native platform integrations:
+This app runs the full [NostrKeep Signer browser extension](https://github.com/HumanjavaEnterprises/nostrkey.browser.plugin.src) UI natively on iOS, with native platform integrations:
 
 - **NIP-07 key management** — create, import, and manage multiple Nostr profiles
 - **NIP-44 / NIP-04 encryption** — modern ChaCha20-Poly1305 and legacy DM support
@@ -21,15 +21,15 @@ This app runs the full [NostrKey browser extension](https://github.com/Humanjava
 - **Lock screen QR code** — share your npub QR code without unlocking the app (bottom sheet)
 - **Lock screen npub display** — active profile's truncated npub shown on the lock screen with copy button
 - **App Groups** — profile sharing between iOS app and Safari extension (planned)
-- **Dark theme** — Monokai color scheme with safe-area insets for notches and home indicators
+- **Dark theme** — NostrKeep teal (#2dd4bf) on navy (#0f172a) color scheme with safe-area insets for notches and home indicators
 
-## Get NostrKey
+## Get NostrKeep Signer
 
 | Platform | Install |
 |----------|---------|
 | **iOS** | App Store — submission in progress |
 | **Chrome / Brave / Edge** | [Chrome Web Store](https://chromewebstore.google.com/detail/nostrkey/cggakcmbihnpmcddkkfmoglgaocnmaop) |
-| **Android** | [Google Play](https://play.google.com/store/apps/details?id=com.nostrkey.app) |
+| **Android** | [Google Play](https://play.google.com/store/apps/details?id=com.nostrkeep.signer.app) |
 
 ## Architecture
 
@@ -61,20 +61,20 @@ This app runs the full [NostrKey browser extension](https://github.com/Humanjava
 └─────────────────────────────────────────────┘
 ```
 
-**Dual-WKWebView architecture:** an invisible background WebView handles message routing and key operations (same as the browser extension's background page), while the visible UI WebView renders the interface. `IOSBridge.swift` (implementing `WKScriptMessageHandler`) bridges JavaScript to native iOS APIs via `webkit.messageHandlers.nostrkey.postMessage()`. A polyfill layer (`ios-polyfill.js`) maps Chrome extension APIs (`chrome.storage`, `chrome.runtime`) to bridge calls.
+**Dual-WKWebView architecture:** an invisible background WebView handles message routing and key operations (same as the browser extension's background page), while the visible UI WebView renders the interface. `IOSBridge.swift` (implementing `WKScriptMessageHandler`) bridges JavaScript to native iOS APIs via `webkit.messageHandlers.nostrkeepsigner.postMessage()`. A polyfill layer (`ios-polyfill.js`) maps Chrome extension APIs (`chrome.storage`, `chrome.runtime`) to bridge calls.
 
 ## The Humanjava Ecosystem
 
-NostrKey is the key management layer for the full product stack.
+NostrKeep Signer is the key management layer for the full product stack.
 
 ```
 npub.bio ($7/year)           Sovereign identity (NIP-05, Lightning, bunker)
-    │                        Uses NostrKey for NIP-07 connect
+    │                        Uses NostrKeep Signer for NIP-07 connect
     ▼
 NostrKeep ($5-7/month)       Private relay + Blossom media server
-    │                        NostrKey points your keys at your relay
+    │                        NostrKeep Signer points your keys at your relay
     ▼
-NostrKey (free)              ◀── You are here (iOS app)
+NostrKeep Signer (free)      ◀── You are here (iOS app)
     │                        Key management, signing, vault
     ▼
 Lx7 / Vaiku                 LLM.being infrastructure
@@ -82,7 +82,7 @@ Lx7 / Vaiku                 LLM.being infrastructure
 
 | Product | What it does | URL |
 |---------|-------------|-----|
-| **NostrKey** | Key management — browser extension + mobile apps | [nostrkey.com](https://nostrkey.com) |
+| **NostrKeep Signer** | Key management — browser extension + mobile apps | [nostrkeep.com](https://nostrkeep.com) |
 | **npub.bio** | Sovereign Nostr identity — NIP-05, Lightning address, profile pages | [npub.bio](https://npub.bio) |
 | **NostrKeep** | Private Nostr relay + Blossom media server (subscription) | [nostrkeep.com](https://nostrkeep.com) |
 
@@ -104,7 +104,7 @@ All NIP support is provided by the bundled extension code (v1.5.5):
 ## Feature Status
 
 ### Shipped
-- Full NostrKey extension UI (profiles, vault, settings, security, key management)
+- Full NostrKeep Signer extension UI (profiles, vault, settings, security, key management)
 - All NIP support listed above (via bundled extension code v1.5.5)
 - QR code scanning for key import (AVFoundation)
 - Lock screen QR code sharing (bottom sheet with on-demand generation)
@@ -141,7 +141,7 @@ Coming soon — submission in progress.
 ### From Source (Sideload)
 1. Clone this repo
 2. Generate Xcode project: `xcodegen generate`
-3. Open `NostrKey.xcodeproj` in Xcode
+3. Open `NostrKeepSigner.xcodeproj` in Xcode
 4. Select your team for code signing
 5. Build and run on your device
 
@@ -158,12 +158,12 @@ Coming soon — submission in progress.
 xcodegen generate
 
 # Build for simulator
-xcodebuild -project NostrKey.xcodeproj -scheme NostrKey \
+xcodebuild -project NostrKeepSigner.xcodeproj -scheme NostrKeepSigner \
     -destination 'platform=iOS Simulator,name=iPhone 17 Pro,OS=latest' \
     -configuration Debug build
 
 # Or open in Xcode
-open NostrKey.xcodeproj
+open NostrKeepSigner.xcodeproj
 ```
 
 ### Debugging WebViews
@@ -177,7 +177,7 @@ In debug builds, WebView inspection is enabled. Connect Safari on macOS:
 ```
 nostrkey.app.ios.src/
 ├── project.yml                   # xcodegen spec → generates .xcodeproj
-├── NostrKey/
+├── NostrKeepSigner/
 │   ├── Info.plist
 │   ├── App/
 │   │   ├── AppDelegate.swift     # UIKit entry point
@@ -190,7 +190,7 @@ nostrkey.app.ios.src/
 │   ├── Assets.xcassets/          # App icon + accent color
 │   └── Web/                      # Extension web assets (v1.5.5)
 │       ├── ios-polyfill.js       # Browser API → iOS bridge adapter
-│       ├── ios-mobile.css        # Mobile theming (Monokai)
+│       ├── ios-mobile.css        # Mobile theming (NostrKeep teal-on-navy)
 │       ├── background.html       # Background page
 │       ├── sidepanel.html        # Main UI (lock screen, QR bottom sheet)
 │       └── ...                   # Sub-pages, JS bundles, images

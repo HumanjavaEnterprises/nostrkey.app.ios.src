@@ -5,8 +5,8 @@ import Foundation
 final class SharedStorage {
     static let shared = SharedStorage()
 
-    private let suiteName = "group.com.nostrkey"
-    private let profilesKey = "nostrkey_shared_profiles"
+    private let suiteName = "group.com.nostrkeep.signer"
+    private let profilesKey = "nostrkeep_signer_shared_profiles"
 
     private var defaults: UserDefaults? {
         UserDefaults(suiteName: suiteName)

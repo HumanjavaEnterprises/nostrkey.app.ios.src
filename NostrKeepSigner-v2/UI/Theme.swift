@@ -1,14 +1,14 @@
 import SwiftUI
 
-/// Monokai-inspired color theme matching the NostrKey browser extension
-enum NostrKeyTheme {
+/// NostrKeep teal-on-navy color theme
+enum NostrKeepSignerTheme {
     // MARK: - Background
-    static let bg = Color("MonokaiBg")              // #272822
-    static let bgLight = Color("MonokaiBgLight")    // #3E3D32
+    static let bg = Color("MonokaiBg")              // #0f172a (navy)
+    static let bgLight = Color("MonokaiBgLight")    // #1e293b (slate)
 
     // MARK: - Accent (primary interactive color)
-    static let accent = Color("AccentColor")         // #A6E22E (Monokai green)
-    static let accentHover = Color(hex: 0xB8F339)    // Lighter green
+    static let accent = Color("AccentColor")         // #2dd4bf (teal)
+    static let accentHover = Color(hex: 0x5eead4)    // Lighter teal
 
     // MARK: - Semantic Colors
     static let orange = Color("MonokaiOrange")       // #FD971F
@@ -18,8 +18,8 @@ enum NostrKeyTheme {
     static let yellow = Color(hex: 0xE6DB74)         // #E6DB74
 
     // MARK: - Text
-    static let text = Color(hex: 0xF8F8F2)           // #F8F8F2
-    static let textMuted = Color(hex: 0xB0B0A8)      // #B0B0A8
+    static let text = Color(hex: 0xF8FAFC)           // #f8fafc
+    static let textMuted = Color(hex: 0x94A3B8)      // #94a3b8
 }
 
 // MARK: - Hex Color Initializer

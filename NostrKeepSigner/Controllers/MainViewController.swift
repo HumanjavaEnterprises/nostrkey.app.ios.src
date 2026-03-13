@@ -8,8 +8,8 @@ class MainViewController: UIViewController {
     private var bgBridge: IOSBridge!
     private var uiBridge: IOSBridge!
 
-    private let monokaiBg = UIColor(red: 0x27/255.0, green: 0x28/255.0, blue: 0x22/255.0, alpha: 1)
-    private let monokaiBar = UIColor(red: 0x3e/255.0, green: 0x3d/255.0, blue: 0x32/255.0, alpha: 1)
+    private let monokaiBg = UIColor(red: 0x0f/255.0, green: 0x17/255.0, blue: 0x2a/255.0, alpha: 1)
+    private let monokaiBar = UIColor(red: 0x1e/255.0, green: 0x29/255.0, blue: 0x3b/255.0, alpha: 1)
 
     // MARK: - Lifecycle
 
@@ -110,7 +110,7 @@ class MainViewController: UIViewController {
 
     private func loadContent() {
         guard let bgURL = Bundle.main.url(forResource: "background", withExtension: "html", subdirectory: "Web") else {
-            print("[NostrKey] ERROR: background.html not found in bundle")
+            print("[NostrKeep Signer] ERROR: background.html not found in bundle")
             return
         }
         let webDir = bgURL.deletingLastPathComponent()
@@ -182,7 +182,7 @@ extension MainViewController: WKNavigationDelegate {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
                 guard let self = self else { return }
                 guard let uiURL = Bundle.main.url(forResource: "sidepanel", withExtension: "html", subdirectory: "Web") else {
-                    print("[NostrKey] ERROR: sidepanel.html not found in bundle")
+                    print("[NostrKeep Signer] ERROR: sidepanel.html not found in bundle")
                     return
                 }
                 let webDir = uiURL.deletingLastPathComponent()

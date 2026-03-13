@@ -25,7 +25,7 @@ struct RelayInfo: Identifiable, Codable, Equatable {
 class RelayManager {
 
     private let storageKey = "relay_list"
-    private let accessGroup = "group.com.nostrkey"
+    private let accessGroup = "group.com.nostrkeep.signer"
 
     private var sharedDefaults: UserDefaults? {
         UserDefaults(suiteName: accessGroup)

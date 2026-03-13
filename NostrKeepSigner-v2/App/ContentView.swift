@@ -21,18 +21,18 @@ struct MainTabView: View {
         // Theme the tab bar globally
         let tabAppearance = UITabBarAppearance()
         tabAppearance.configureWithOpaqueBackground()
-        tabAppearance.backgroundColor = UIColor(NostrKeyTheme.bgLight)
+        tabAppearance.backgroundColor = UIColor(NostrKeepSignerTheme.bgLight)
 
         // Normal state
-        tabAppearance.stackedLayoutAppearance.normal.iconColor = UIColor(NostrKeyTheme.textMuted)
+        tabAppearance.stackedLayoutAppearance.normal.iconColor = UIColor(NostrKeepSignerTheme.textMuted)
         tabAppearance.stackedLayoutAppearance.normal.titleTextAttributes = [
-            .foregroundColor: UIColor(NostrKeyTheme.textMuted)
+            .foregroundColor: UIColor(NostrKeepSignerTheme.textMuted)
         ]
 
         // Selected state
-        tabAppearance.stackedLayoutAppearance.selected.iconColor = UIColor(NostrKeyTheme.accent)
+        tabAppearance.stackedLayoutAppearance.selected.iconColor = UIColor(NostrKeepSignerTheme.accent)
         tabAppearance.stackedLayoutAppearance.selected.titleTextAttributes = [
-            .foregroundColor: UIColor(NostrKeyTheme.accent)
+            .foregroundColor: UIColor(NostrKeepSignerTheme.accent)
         ]
 
         UITabBar.appearance().standardAppearance = tabAppearance
@@ -41,18 +41,18 @@ struct MainTabView: View {
         // Theme the navigation bar globally
         let navAppearance = UINavigationBarAppearance()
         navAppearance.configureWithOpaqueBackground()
-        navAppearance.backgroundColor = UIColor(NostrKeyTheme.bg)
+        navAppearance.backgroundColor = UIColor(NostrKeepSignerTheme.bg)
         navAppearance.titleTextAttributes = [
-            .foregroundColor: UIColor(NostrKeyTheme.text)
+            .foregroundColor: UIColor(NostrKeepSignerTheme.text)
         ]
         navAppearance.largeTitleTextAttributes = [
-            .foregroundColor: UIColor(NostrKeyTheme.text)
+            .foregroundColor: UIColor(NostrKeepSignerTheme.text)
         ]
 
         UINavigationBar.appearance().standardAppearance = navAppearance
         UINavigationBar.appearance().compactAppearance = navAppearance
         UINavigationBar.appearance().scrollEdgeAppearance = navAppearance
-        UINavigationBar.appearance().tintColor = UIColor(NostrKeyTheme.accent)
+        UINavigationBar.appearance().tintColor = UIColor(NostrKeepSignerTheme.accent)
     }
 
     var body: some View {
@@ -87,7 +87,7 @@ struct MainTabView: View {
                 }
                 .tag(AppTab.settings)
         }
-        .tint(NostrKeyTheme.accent)
+        .tint(NostrKeepSignerTheme.accent)
     }
 }
 
@@ -106,17 +106,17 @@ struct OnboardingView: View {
 
             Image(systemName: "key.fill")
                 .font(.system(size: 72))
-                .foregroundStyle(NostrKeyTheme.accent)
+                .foregroundStyle(NostrKeepSignerTheme.accent)
 
             VStack(spacing: 8) {
-                Text("NostrKey")
+                Text("NostrKeep Signer")
                     .font(.largeTitle)
                     .fontWeight(.bold)
-                    .foregroundStyle(NostrKeyTheme.text)
+                    .foregroundStyle(NostrKeepSignerTheme.text)
 
                 Text("Your identity. Your keys. Your rules.")
                     .font(.subheadline)
-                    .foregroundStyle(NostrKeyTheme.textMuted)
+                    .foregroundStyle(NostrKeepSignerTheme.textMuted)
             }
 
             Spacer()
@@ -132,8 +132,8 @@ struct OnboardingView: View {
                     .font(.headline)
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(NostrKeyTheme.accent)
-                    .foregroundStyle(NostrKeyTheme.bg)
+                    .background(NostrKeepSignerTheme.accent)
+                    .foregroundStyle(NostrKeepSignerTheme.bg)
                     .clipShape(RoundedRectangle(cornerRadius: 14))
                 }
                 .disabled(isCreating)
@@ -148,8 +148,8 @@ struct OnboardingView: View {
                     .font(.headline)
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(NostrKeyTheme.bgLight)
-                    .foregroundStyle(NostrKeyTheme.text)
+                    .background(NostrKeepSignerTheme.bgLight)
+                    .foregroundStyle(NostrKeepSignerTheme.text)
                     .clipShape(RoundedRectangle(cornerRadius: 14))
                 }
             }
@@ -158,14 +158,14 @@ struct OnboardingView: View {
             if let error = errorMessage {
                 Text(error)
                     .font(.caption)
-                    .foregroundStyle(NostrKeyTheme.red)
+                    .foregroundStyle(NostrKeepSignerTheme.red)
                     .padding(.horizontal)
             }
 
             Spacer()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(NostrKeyTheme.bg.ignoresSafeArea())
+        .background(NostrKeepSignerTheme.bg.ignoresSafeArea())
         .sheet(isPresented: $showImport) {
             ImportKeysView(nsec: $importNsec) {
                 do {
@@ -204,19 +204,19 @@ struct ImportKeysView: View {
             VStack(spacing: 24) {
                 Text("Paste your nsec (private key) below. It will be stored in the Secure Enclave on this device.")
                     .font(.subheadline)
-                    .foregroundStyle(NostrKeyTheme.textMuted)
+                    .foregroundStyle(NostrKeepSignerTheme.textMuted)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal)
 
                 TextField("nsec1...", text: $nsec)
                     .font(.system(.body, design: .monospaced))
                     .padding()
-                    .background(NostrKeyTheme.bgLight)
-                    .foregroundStyle(NostrKeyTheme.text)
+                    .background(NostrKeepSignerTheme.bgLight)
+                    .foregroundStyle(NostrKeepSignerTheme.text)
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                     .overlay {
                         RoundedRectangle(cornerRadius: 10)
-                            .stroke(NostrKeyTheme.accent.opacity(0.3), lineWidth: 1)
+                            .stroke(NostrKeepSignerTheme.accent.opacity(0.3), lineWidth: 1)
                     }
                     .autocorrectionDisabled()
                     .textInputAutocapitalization(.never)
@@ -228,8 +228,8 @@ struct ImportKeysView: View {
                 .font(.headline)
                 .frame(maxWidth: .infinity)
                 .padding()
-                .background(nsec.isEmpty ? NostrKeyTheme.bgLight : NostrKeyTheme.accent)
-                .foregroundStyle(nsec.isEmpty ? NostrKeyTheme.textMuted : NostrKeyTheme.bg)
+                .background(nsec.isEmpty ? NostrKeepSignerTheme.bgLight : NostrKeepSignerTheme.accent)
+                .foregroundStyle(nsec.isEmpty ? NostrKeepSignerTheme.textMuted : NostrKeepSignerTheme.bg)
                 .clipShape(RoundedRectangle(cornerRadius: 14))
                 .padding(.horizontal)
                 .disabled(nsec.isEmpty)
@@ -237,7 +237,7 @@ struct ImportKeysView: View {
                 Spacer()
             }
             .padding(.top, 24)
-            .background(NostrKeyTheme.bg.ignoresSafeArea())
+            .background(NostrKeepSignerTheme.bg.ignoresSafeArea())
             .navigationTitle("Import Keys")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

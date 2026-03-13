@@ -5,7 +5,7 @@
     <key>CFBundleDevelopmentRegion</key>
     <string>en</string>
     <key>CFBundleDisplayName</key>
-    <string>NostrKey</string>
+    <string>NostrKeep Signer</string>
     <key>CFBundleExecutable</key>
     <string>$(EXECUTABLE_NAME)</string>
     <key>CFBundleIdentifier</key>
@@ -23,7 +23,7 @@
     <key>LSRequiresIPhoneOS</key>
     <true/>
     <key>NSCameraUsageDescription</key>
-    <string>NostrKey uses the camera to scan QR codes containing Nostr keys (nsec, npub, ncryptsec).</string>
+    <string>NostrKeep Signer uses the camera to scan QR codes containing Nostr keys (nsec, npub, ncryptsec).</string>
     <key>UIUserInterfaceStyle</key>
     <string>Dark</string>
     <key>UILaunchScreen</key>

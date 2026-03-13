@@ -1,6 +1,6 @@
 import Foundation
 
-/// A Nostr identity (key pair) managed by NostrKey
+/// A Nostr identity (key pair) managed by NostrKeep Signer
 struct NostrProfile: Identifiable, Codable, Equatable {
     let id: UUID
     var name: String

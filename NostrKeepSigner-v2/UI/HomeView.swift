@@ -43,8 +43,8 @@ struct HomeView: View {
                 }
                 .padding()
             }
-            .background(NostrKeyTheme.bg.ignoresSafeArea())
-            .navigationTitle("NostrKey")
+            .background(NostrKeepSignerTheme.bg.ignoresSafeArea())
+            .navigationTitle("NostrKeep Signer")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
@@ -61,7 +61,7 @@ struct HomeView: View {
                         }
                     } label: {
                         Image(systemName: "plus.circle")
-                            .foregroundStyle(NostrKeyTheme.accent)
+                            .foregroundStyle(NostrKeepSignerTheme.accent)
                     }
                 }
             }
@@ -110,12 +110,12 @@ struct HomeView: View {
                         .font(.caption)
                         .fontWeight(.semibold)
                         .textCase(.uppercase)
-                        .foregroundStyle(NostrKeyTheme.textMuted)
+                        .foregroundStyle(NostrKeepSignerTheme.textMuted)
 
                     Text(profile.name)
                         .font(.title2)
                         .fontWeight(.bold)
-                        .foregroundStyle(NostrKeyTheme.text)
+                        .foregroundStyle(NostrKeepSignerTheme.text)
                 }
 
                 Spacer()
@@ -131,10 +131,10 @@ struct HomeView: View {
                 .padding(.horizontal, 10)
                 .padding(.vertical, 5)
                 .background(
-                    (profile.isSecureEnclave ? NostrKeyTheme.accent : NostrKeyTheme.orange)
+                    (profile.isSecureEnclave ? NostrKeepSignerTheme.accent : NostrKeepSignerTheme.orange)
                         .opacity(0.15)
                 )
-                .foregroundStyle(profile.isSecureEnclave ? NostrKeyTheme.accent : NostrKeyTheme.orange)
+                .foregroundStyle(profile.isSecureEnclave ? NostrKeepSignerTheme.accent : NostrKeepSignerTheme.orange)
                 .clipShape(Capsule())
             }
 
@@ -160,22 +160,22 @@ struct HomeView: View {
                 HStack {
                     Text(profile.displayNpub)
                         .font(.system(.caption, design: .monospaced))
-                        .foregroundStyle(NostrKeyTheme.textMuted)
+                        .foregroundStyle(NostrKeepSignerTheme.textMuted)
                         .lineLimit(1)
 
                     Image(systemName: showCopied ? "checkmark.circle.fill" : "doc.on.doc")
                         .font(.caption)
-                        .foregroundStyle(showCopied ? NostrKeyTheme.accent : NostrKeyTheme.textMuted)
+                        .foregroundStyle(showCopied ? NostrKeepSignerTheme.accent : NostrKeepSignerTheme.textMuted)
                 }
             }
         }
         .padding(20)
         .background {
             RoundedRectangle(cornerRadius: 16)
-                .fill(NostrKeyTheme.bgLight)
+                .fill(NostrKeepSignerTheme.bgLight)
                 .overlay {
                     RoundedRectangle(cornerRadius: 16)
-                        .stroke(NostrKeyTheme.accent.opacity(0.3), lineWidth: 1)
+                        .stroke(NostrKeepSignerTheme.accent.opacity(0.3), lineWidth: 1)
                 }
         }
     }
@@ -188,7 +188,7 @@ struct HomeView: View {
             profileActionButton(
                 icon: "info.circle",
                 label: "Details",
-                color: NostrKeyTheme.cyan
+                color: NostrKeepSignerTheme.cyan
             ) {
                 showDetails = true
             }
@@ -196,7 +196,7 @@ struct HomeView: View {
             profileActionButton(
                 icon: "square.and.arrow.up",
                 label: "Share",
-                color: NostrKeyTheme.accent
+                color: NostrKeepSignerTheme.accent
             ) {
                 showShare = true
             }
@@ -204,7 +204,7 @@ struct HomeView: View {
             profileActionButton(
                 icon: "clock.arrow.circlepath",
                 label: "History",
-                color: NostrKeyTheme.orange
+                color: NostrKeepSignerTheme.orange
             ) {
                 showHistory = true
             }
@@ -212,7 +212,7 @@ struct HomeView: View {
             profileActionButton(
                 icon: "slider.horizontal.3",
                 label: "Manage",
-                color: NostrKeyTheme.textMuted
+                color: NostrKeepSignerTheme.textMuted
             ) {
                 showManage = true
             }
@@ -229,11 +229,11 @@ struct HomeView: View {
                 Text(label)
                     .font(.caption2)
                     .fontWeight(.medium)
-                    .foregroundStyle(NostrKeyTheme.textMuted)
+                    .foregroundStyle(NostrKeepSignerTheme.textMuted)
             }
             .frame(maxWidth: .infinity)
             .padding(.vertical, 14)
-            .background(NostrKeyTheme.bgLight)
+            .background(NostrKeepSignerTheme.bgLight)
             .clipShape(RoundedRectangle(cornerRadius: 12))
         }
     }
@@ -247,19 +247,19 @@ struct HomeView: View {
                 .font(.caption)
                 .fontWeight(.semibold)
                 .textCase(.uppercase)
-                .foregroundStyle(NostrKeyTheme.textMuted)
+                .foregroundStyle(NostrKeepSignerTheme.textMuted)
 
             if appState.profiles.isEmpty {
                 HStack {
                     Image(systemName: "person.crop.circle.badge.plus")
-                        .foregroundStyle(NostrKeyTheme.textMuted)
+                        .foregroundStyle(NostrKeepSignerTheme.textMuted)
                     Text("No profiles yet. Create or import one to get started.")
                         .font(.subheadline)
-                        .foregroundStyle(NostrKeyTheme.textMuted)
+                        .foregroundStyle(NostrKeepSignerTheme.textMuted)
                 }
                 .padding()
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .background(NostrKeyTheme.bgLight)
+                .background(NostrKeepSignerTheme.bgLight)
                 .clipShape(RoundedRectangle(cornerRadius: 12))
             } else {
                 VStack(spacing: 0) {
@@ -268,11 +268,11 @@ struct HomeView: View {
 
                         if index < appState.profiles.count - 1 {
                             Divider()
-                                .background(NostrKeyTheme.bg)
+                                .background(NostrKeepSignerTheme.bg)
                         }
                     }
                 }
-                .background(NostrKeyTheme.bgLight)
+                .background(NostrKeepSignerTheme.bgLight)
                 .clipShape(RoundedRectangle(cornerRadius: 12))
             }
         }
@@ -288,17 +288,17 @@ struct HomeView: View {
             HStack(spacing: 12) {
                 Image(systemName: "person.crop.circle.fill")
                     .font(.title2)
-                    .foregroundStyle(isActive ? NostrKeyTheme.accent : NostrKeyTheme.brown)
+                    .foregroundStyle(isActive ? NostrKeepSignerTheme.accent : NostrKeepSignerTheme.brown)
 
                 VStack(alignment: .leading, spacing: 2) {
                     Text(profile.name)
                         .font(.subheadline)
                         .fontWeight(.semibold)
-                        .foregroundStyle(isActive ? NostrKeyTheme.accent : NostrKeyTheme.text)
+                        .foregroundStyle(isActive ? NostrKeepSignerTheme.accent : NostrKeepSignerTheme.text)
 
                     Text(profile.displayNpub)
                         .font(.system(.caption2, design: .monospaced))
-                        .foregroundStyle(NostrKeyTheme.textMuted)
+                        .foregroundStyle(NostrKeepSignerTheme.textMuted)
                         .lineLimit(1)
                 }
 
@@ -306,11 +306,11 @@ struct HomeView: View {
 
                 if isActive {
                     Image(systemName: "checkmark.circle.fill")
-                        .foregroundStyle(NostrKeyTheme.accent)
+                        .foregroundStyle(NostrKeepSignerTheme.accent)
                 } else {
                     Text("Select")
                         .font(.caption)
-                        .foregroundStyle(NostrKeyTheme.textMuted)
+                        .foregroundStyle(NostrKeepSignerTheme.textMuted)
                 }
             }
             .padding(.horizontal, 16)
@@ -329,22 +329,22 @@ struct HomeView: View {
                 .font(.caption)
                 .fontWeight(.semibold)
                 .textCase(.uppercase)
-                .foregroundStyle(NostrKeyTheme.textMuted)
+                .foregroundStyle(NostrKeepSignerTheme.textMuted)
 
             HStack {
                 Image(systemName: "antenna.radiowaves.left.and.right")
-                    .foregroundStyle(appState.relays.isEmpty ? NostrKeyTheme.orange : NostrKeyTheme.accent)
+                    .foregroundStyle(appState.relays.isEmpty ? NostrKeepSignerTheme.orange : NostrKeepSignerTheme.accent)
 
                 if appState.relays.isEmpty {
                     VStack(alignment: .leading, spacing: 2) {
                         Text("No relays configured")
                             .font(.subheadline)
                             .fontWeight(.medium)
-                            .foregroundStyle(NostrKeyTheme.orange)
+                            .foregroundStyle(NostrKeepSignerTheme.orange)
 
                         Text("Add relays to connect to the Nostr network.")
                             .font(.caption)
-                            .foregroundStyle(NostrKeyTheme.textMuted)
+                            .foregroundStyle(NostrKeepSignerTheme.textMuted)
                     }
 
                     Spacer()
@@ -356,13 +356,13 @@ struct HomeView: View {
                     .fontWeight(.semibold)
                     .padding(.horizontal, 12)
                     .padding(.vertical, 6)
-                    .background(NostrKeyTheme.accent)
-                    .foregroundStyle(NostrKeyTheme.bg)
+                    .background(NostrKeepSignerTheme.accent)
+                    .foregroundStyle(NostrKeepSignerTheme.bg)
                     .clipShape(Capsule())
                 } else {
                     Text("\(appState.relays.count) relay\(appState.relays.count == 1 ? "" : "s") configured")
                         .font(.subheadline)
-                        .foregroundStyle(NostrKeyTheme.text)
+                        .foregroundStyle(NostrKeepSignerTheme.text)
 
                     Spacer()
 
@@ -371,12 +371,12 @@ struct HomeView: View {
                     } label: {
                         Image(systemName: "chevron.right")
                             .font(.caption)
-                            .foregroundStyle(NostrKeyTheme.textMuted)
+                            .foregroundStyle(NostrKeepSignerTheme.textMuted)
                     }
                 }
             }
             .padding()
-            .background(NostrKeyTheme.bgLight)
+            .background(NostrKeepSignerTheme.bgLight)
             .clipShape(RoundedRectangle(cornerRadius: 12))
         }
     }
@@ -390,32 +390,32 @@ struct HomeView: View {
                 .font(.caption)
                 .fontWeight(.semibold)
                 .textCase(.uppercase)
-                .foregroundStyle(NostrKeyTheme.textMuted)
+                .foregroundStyle(NostrKeepSignerTheme.textMuted)
 
             ForEach(appState.activeSessions, id: \.id) { session in
                 HStack {
                     Image(systemName: "app.connected.to.app.below.fill")
-                        .foregroundStyle(NostrKeyTheme.cyan)
+                        .foregroundStyle(NostrKeepSignerTheme.cyan)
 
                     VStack(alignment: .leading) {
                         Text(session.appName ?? "Unknown App")
                             .font(.subheadline)
                             .fontWeight(.medium)
-                            .foregroundStyle(NostrKeyTheme.text)
+                            .foregroundStyle(NostrKeepSignerTheme.text)
 
                         Text(session.relayURL)
                             .font(.system(.caption2, design: .monospaced))
-                            .foregroundStyle(NostrKeyTheme.textMuted)
+                            .foregroundStyle(NostrKeepSignerTheme.textMuted)
                     }
 
                     Spacer()
 
                     Circle()
-                        .fill(NostrKeyTheme.accent)
+                        .fill(NostrKeepSignerTheme.accent)
                         .frame(width: 8, height: 8)
                 }
                 .padding()
-                .background(NostrKeyTheme.bgLight)
+                .background(NostrKeepSignerTheme.bgLight)
                 .clipShape(RoundedRectangle(cornerRadius: 12))
             }
         }
@@ -462,12 +462,12 @@ struct CreateProfileSheet: View {
                 // Icon
                 Image(systemName: "person.crop.circle.badge.plus")
                     .font(.system(size: 56))
-                    .foregroundStyle(NostrKeyTheme.accent)
+                    .foregroundStyle(NostrKeepSignerTheme.accent)
                     .padding(.top, 8)
 
                 Text("Create a name for this identity. A new Nostr keypair will be generated and stored securely on this device.")
                     .font(.subheadline)
-                    .foregroundStyle(NostrKeyTheme.textMuted)
+                    .foregroundStyle(NostrKeepSignerTheme.textMuted)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal)
 
@@ -477,16 +477,16 @@ struct CreateProfileSheet: View {
                         .font(.caption)
                         .fontWeight(.semibold)
                         .textCase(.uppercase)
-                        .foregroundStyle(NostrKeyTheme.textMuted)
+                        .foregroundStyle(NostrKeepSignerTheme.textMuted)
 
                     TextField("e.g. Personal, Work, Anon", text: $profileName)
                         .font(.body)
                         .padding()
-                        .background(NostrKeyTheme.bgLight)
+                        .background(NostrKeepSignerTheme.bgLight)
                         .clipShape(RoundedRectangle(cornerRadius: 10))
                         .overlay {
                             RoundedRectangle(cornerRadius: 10)
-                                .stroke(NostrKeyTheme.accent.opacity(0.3), lineWidth: 1)
+                                .stroke(NostrKeepSignerTheme.accent.opacity(0.3), lineWidth: 1)
                         }
                         .autocorrectionDisabled()
                 }
@@ -497,23 +497,23 @@ struct CreateProfileSheet: View {
                     VStack(spacing: 12) {
                         HStack {
                             Image(systemName: "checkmark.circle.fill")
-                                .foregroundStyle(NostrKeyTheme.accent)
+                                .foregroundStyle(NostrKeepSignerTheme.accent)
                             Text("Identity Created")
                                 .font(.subheadline)
                                 .fontWeight(.semibold)
-                                .foregroundStyle(NostrKeyTheme.accent)
+                                .foregroundStyle(NostrKeepSignerTheme.accent)
                         }
 
                         Text(profile.npub)
                             .font(.system(.caption2, design: .monospaced))
-                            .foregroundStyle(NostrKeyTheme.textMuted)
+                            .foregroundStyle(NostrKeepSignerTheme.textMuted)
                             .lineLimit(2)
                             .multilineTextAlignment(.center)
                             .padding(.horizontal)
                     }
                     .padding()
                     .frame(maxWidth: .infinity)
-                    .background(NostrKeyTheme.accent.opacity(0.1))
+                    .background(NostrKeepSignerTheme.accent.opacity(0.1))
                     .clipShape(RoundedRectangle(cornerRadius: 12))
                     .padding(.horizontal)
                 }
@@ -521,7 +521,7 @@ struct CreateProfileSheet: View {
                 if let error = errorMessage {
                     Text(error)
                         .font(.caption)
-                        .foregroundStyle(NostrKeyTheme.red)
+                        .foregroundStyle(NostrKeepSignerTheme.red)
                         .padding(.horizontal)
                 }
 
@@ -536,7 +536,7 @@ struct CreateProfileSheet: View {
                             HStack {
                                 if isCreating {
                                     ProgressView()
-                                        .tint(NostrKeyTheme.bg)
+                                        .tint(NostrKeepSignerTheme.bg)
                                 } else {
                                     Image(systemName: "key.fill")
                                 }
@@ -545,8 +545,8 @@ struct CreateProfileSheet: View {
                             .font(.headline)
                             .frame(maxWidth: .infinity)
                             .padding()
-                            .background(profileName.trimmingCharacters(in: .whitespaces).isEmpty ? NostrKeyTheme.bgLight : NostrKeyTheme.accent)
-                            .foregroundStyle(profileName.trimmingCharacters(in: .whitespaces).isEmpty ? NostrKeyTheme.textMuted : NostrKeyTheme.bg)
+                            .background(profileName.trimmingCharacters(in: .whitespaces).isEmpty ? NostrKeepSignerTheme.bgLight : NostrKeepSignerTheme.accent)
+                            .foregroundStyle(profileName.trimmingCharacters(in: .whitespaces).isEmpty ? NostrKeepSignerTheme.textMuted : NostrKeepSignerTheme.bg)
                             .clipShape(RoundedRectangle(cornerRadius: 14))
                         }
                         .disabled(profileName.trimmingCharacters(in: .whitespaces).isEmpty || isCreating)
@@ -558,8 +558,8 @@ struct CreateProfileSheet: View {
                                 .font(.headline)
                                 .frame(maxWidth: .infinity)
                                 .padding()
-                                .background(NostrKeyTheme.accent)
-                                .foregroundStyle(NostrKeyTheme.bg)
+                                .background(NostrKeepSignerTheme.accent)
+                                .foregroundStyle(NostrKeepSignerTheme.bg)
                                 .clipShape(RoundedRectangle(cornerRadius: 14))
                         }
                     }
@@ -568,7 +568,7 @@ struct CreateProfileSheet: View {
                 .padding(.bottom, 16)
             }
             .padding(.top, 24)
-            .background(NostrKeyTheme.bg.ignoresSafeArea())
+            .background(NostrKeepSignerTheme.bg.ignoresSafeArea())
             .navigationTitle("New Identity")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -622,21 +622,21 @@ struct ProfileDetailsSheet: View {
                     // Profile info rows
                     VStack(spacing: 0) {
                         detailRow(label: "Name", value: profile.name)
-                        Divider().background(NostrKeyTheme.bg)
+                        Divider().background(NostrKeepSignerTheme.bg)
                         detailRow(label: "Public Key (npub)", value: profile.npub, monospaced: true, copiable: true)
-                        Divider().background(NostrKeyTheme.bg)
+                        Divider().background(NostrKeepSignerTheme.bg)
                         detailRow(label: "Hex Pubkey", value: profile.pubkeyHex, monospaced: true, copiable: true)
-                        Divider().background(NostrKeyTheme.bg)
+                        Divider().background(NostrKeepSignerTheme.bg)
                         detailRow(label: "Created", value: profile.createdAt.formatted(date: .abbreviated, time: .shortened))
-                        Divider().background(NostrKeyTheme.bg)
+                        Divider().background(NostrKeepSignerTheme.bg)
                         detailRow(label: "Key Storage", value: profile.isSecureEnclave ? "Secure Enclave + Face ID" : "Software Keychain")
                     }
-                    .background(NostrKeyTheme.bgLight)
+                    .background(NostrKeepSignerTheme.bgLight)
                     .clipShape(RoundedRectangle(cornerRadius: 12))
                 }
                 .padding()
             }
-            .background(NostrKeyTheme.bg.ignoresSafeArea())
+            .background(NostrKeepSignerTheme.bg.ignoresSafeArea())
             .navigationTitle("Profile Details")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -654,18 +654,18 @@ struct ProfileDetailsSheet: View {
             Text(label)
                 .font(.caption)
                 .fontWeight(.semibold)
-                .foregroundStyle(NostrKeyTheme.textMuted)
+                .foregroundStyle(NostrKeepSignerTheme.textMuted)
 
             HStack {
                 if monospaced {
                     Text(value)
                         .font(.system(.caption, design: .monospaced))
-                        .foregroundStyle(NostrKeyTheme.text)
+                        .foregroundStyle(NostrKeepSignerTheme.text)
                         .lineLimit(3)
                 } else {
                     Text(value)
                         .font(.subheadline)
-                        .foregroundStyle(NostrKeyTheme.text)
+                        .foregroundStyle(NostrKeepSignerTheme.text)
                 }
 
                 Spacer()
@@ -676,7 +676,7 @@ struct ProfileDetailsSheet: View {
                     } label: {
                         Image(systemName: "doc.on.doc")
                             .font(.caption)
-                            .foregroundStyle(NostrKeyTheme.accent)
+                            .foregroundStyle(NostrKeepSignerTheme.accent)
                     }
                 }
             }
@@ -719,7 +719,7 @@ struct ProfileShareSheet: View {
 
                 Text(profile.displayNpub)
                     .font(.system(.caption, design: .monospaced))
-                    .foregroundStyle(NostrKeyTheme.textMuted)
+                    .foregroundStyle(NostrKeepSignerTheme.textMuted)
 
                 VStack(spacing: 12) {
                     // Copy npub
@@ -737,8 +737,8 @@ struct ProfileShareSheet: View {
                         .font(.headline)
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(NostrKeyTheme.accent.opacity(0.15))
-                        .foregroundStyle(NostrKeyTheme.accent)
+                        .background(NostrKeepSignerTheme.accent.opacity(0.15))
+                        .foregroundStyle(NostrKeepSignerTheme.accent)
                         .clipShape(RoundedRectangle(cornerRadius: 14))
                     }
 
@@ -755,33 +755,20 @@ struct ProfileShareSheet: View {
                         .font(.headline)
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(NostrKeyTheme.bgLight)
-                        .foregroundStyle(NostrKeyTheme.text)
+                        .background(NostrKeepSignerTheme.bgLight)
+                        .foregroundStyle(NostrKeepSignerTheme.text)
                         .clipShape(RoundedRectangle(cornerRadius: 14))
                     }
 
-                    // Apple Wallet placeholder
-                    Button {
-                        // TODO: PassKit integration
-                    } label: {
-                        HStack {
-                            Image(systemName: "wallet.pass")
-                            Text("Add to Apple Wallet")
-                        }
-                        .font(.headline)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(.black)
-                        .foregroundStyle(.white)
-                        .clipShape(RoundedRectangle(cornerRadius: 14))
-                    }
+                    // Add to Apple Wallet
+                    AddToWalletButton()
                 }
                 .padding(.horizontal)
 
                 Spacer()
             }
             .padding(.top, 24)
-            .background(NostrKeyTheme.bg.ignoresSafeArea())
+            .background(NostrKeepSignerTheme.bg.ignoresSafeArea())
             .navigationTitle("Share \(profile.name)")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -819,16 +806,16 @@ struct ProfileHistorySheet: View {
                         Spacer()
                         Image(systemName: "clock.arrow.circlepath")
                             .font(.system(size: 48))
-                            .foregroundStyle(NostrKeyTheme.textMuted)
+                            .foregroundStyle(NostrKeepSignerTheme.textMuted)
 
                         Text("No Signing History")
                             .font(.title3)
                             .fontWeight(.semibold)
-                            .foregroundStyle(NostrKeyTheme.text)
+                            .foregroundStyle(NostrKeepSignerTheme.text)
 
                         Text("When you authenticate with apps via NIP-46, your signing history will appear here.")
                             .font(.subheadline)
-                            .foregroundStyle(NostrKeyTheme.textMuted)
+                            .foregroundStyle(NostrKeepSignerTheme.textMuted)
                             .multilineTextAlignment(.center)
                             .padding(.horizontal, 40)
                         Spacer()
@@ -841,30 +828,30 @@ struct ProfileHistorySheet: View {
                                     Text(session.appName ?? "Unknown App")
                                         .font(.subheadline)
                                         .fontWeight(.medium)
-                                        .foregroundStyle(NostrKeyTheme.text)
+                                        .foregroundStyle(NostrKeepSignerTheme.text)
 
                                     Text(session.relayURL)
                                         .font(.system(.caption2, design: .monospaced))
-                                        .foregroundStyle(NostrKeyTheme.textMuted)
+                                        .foregroundStyle(NostrKeepSignerTheme.textMuted)
 
                                     Text(session.createdAt.formatted(date: .abbreviated, time: .shortened))
                                         .font(.caption2)
-                                        .foregroundStyle(NostrKeyTheme.textMuted)
+                                        .foregroundStyle(NostrKeepSignerTheme.textMuted)
                                 }
 
                                 Spacer()
 
                                 Circle()
-                                    .fill(session.isActive ? NostrKeyTheme.accent : NostrKeyTheme.textMuted)
+                                    .fill(session.isActive ? NostrKeepSignerTheme.accent : NostrKeepSignerTheme.textMuted)
                                     .frame(width: 8, height: 8)
                             }
-                            .listRowBackground(NostrKeyTheme.bgLight)
+                            .listRowBackground(NostrKeepSignerTheme.bgLight)
                         }
                     }
                     .scrollContentBackground(.hidden)
                 }
             }
-            .background(NostrKeyTheme.bg.ignoresSafeArea())
+            .background(NostrKeepSignerTheme.bg.ignoresSafeArea())
             .navigationTitle("Signing History")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -895,18 +882,18 @@ struct ProfileManageSheet: View {
                         Section {
                             HStack {
                                 Text("Name")
-                                    .foregroundStyle(NostrKeyTheme.textMuted)
+                                    .foregroundStyle(NostrKeepSignerTheme.textMuted)
                                 Spacer()
                                 if isEditing {
                                     TextField("Profile name", text: $editingName)
                                         .multilineTextAlignment(.trailing)
-                                        .foregroundStyle(NostrKeyTheme.text)
+                                        .foregroundStyle(NostrKeepSignerTheme.text)
                                 } else {
                                     Text(profile.name)
-                                        .foregroundStyle(NostrKeyTheme.text)
+                                        .foregroundStyle(NostrKeepSignerTheme.text)
                                 }
                             }
-                            .listRowBackground(NostrKeyTheme.bgLight)
+                            .listRowBackground(NostrKeepSignerTheme.bgLight)
                         } header: {
                             Text("Profile")
                         }
@@ -923,12 +910,12 @@ struct ProfileManageSheet: View {
                             } label: {
                                 HStack {
                                     Image(systemName: isEditing ? "checkmark.circle" : "pencil")
-                                        .foregroundStyle(NostrKeyTheme.accent)
+                                        .foregroundStyle(NostrKeepSignerTheme.accent)
                                     Text(isEditing ? "Save Name" : "Rename Profile")
-                                        .foregroundStyle(NostrKeyTheme.accent)
+                                        .foregroundStyle(NostrKeepSignerTheme.accent)
                                 }
                             }
-                            .listRowBackground(NostrKeyTheme.bgLight)
+                            .listRowBackground(NostrKeepSignerTheme.bgLight)
 
                             if isEditing {
                                 Button {
@@ -936,12 +923,12 @@ struct ProfileManageSheet: View {
                                 } label: {
                                     HStack {
                                         Image(systemName: "xmark.circle")
-                                            .foregroundStyle(NostrKeyTheme.textMuted)
+                                            .foregroundStyle(NostrKeepSignerTheme.textMuted)
                                         Text("Cancel Editing")
-                                            .foregroundStyle(NostrKeyTheme.textMuted)
+                                            .foregroundStyle(NostrKeepSignerTheme.textMuted)
                                     }
                                 }
-                                .listRowBackground(NostrKeyTheme.bgLight)
+                                .listRowBackground(NostrKeepSignerTheme.bgLight)
                             }
                         } header: {
                             Text("Actions")
@@ -957,21 +944,21 @@ struct ProfileManageSheet: View {
                                         Image(systemName: "trash")
                                         Text("Delete Profile")
                                     }
-                                    .foregroundStyle(NostrKeyTheme.red)
+                                    .foregroundStyle(NostrKeepSignerTheme.red)
                                 }
-                                .listRowBackground(NostrKeyTheme.bgLight)
+                                .listRowBackground(NostrKeepSignerTheme.bgLight)
                             } header: {
                                 Text("Danger Zone")
                             } footer: {
                                 Text("This will permanently remove the profile and its private key from this device. This cannot be undone.")
-                                    .foregroundStyle(NostrKeyTheme.textMuted)
+                                    .foregroundStyle(NostrKeepSignerTheme.textMuted)
                             }
                         }
                     }
                     .scrollContentBackground(.hidden)
                 }
             }
-            .background(NostrKeyTheme.bg.ignoresSafeArea())
+            .background(NostrKeepSignerTheme.bg.ignoresSafeArea())
             .navigationTitle("Manage Profile")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

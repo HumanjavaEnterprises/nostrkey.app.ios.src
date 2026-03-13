@@ -7,7 +7,6 @@ import CoreImage.CIFilterBuiltins
 struct IdentityCardView: View {
     @EnvironmentObject var appState: AppState
     @State private var showCopied = false
-    @State private var showWalletPrompt = false
 
     var body: some View {
         NavigationStack {
@@ -28,18 +27,18 @@ struct IdentityCardView: View {
                     VStack(spacing: 16) {
                         Image(systemName: "person.crop.circle.badge.questionmark")
                             .font(.system(size: 64))
-                            .foregroundStyle(NostrKeyTheme.textMuted)
+                            .foregroundStyle(NostrKeepSignerTheme.textMuted)
                         Text("No identity yet")
                             .font(.title3)
-                            .foregroundStyle(NostrKeyTheme.textMuted)
+                            .foregroundStyle(NostrKeepSignerTheme.textMuted)
                         Text("Create or import a key to get started.")
                             .font(.subheadline)
-                            .foregroundStyle(NostrKeyTheme.textMuted.opacity(0.6))
+                            .foregroundStyle(NostrKeepSignerTheme.textMuted.opacity(0.6))
                     }
                     .padding(.top, 100)
                 }
             }
-            .background(NostrKeyTheme.bg.ignoresSafeArea())
+            .background(NostrKeepSignerTheme.bg.ignoresSafeArea())
             .navigationTitle("Identity")
         }
     }
@@ -64,21 +63,21 @@ struct IdentityCardView: View {
                 Text(profile.name)
                     .font(.title2)
                     .fontWeight(.bold)
-                    .foregroundStyle(NostrKeyTheme.text)
+                    .foregroundStyle(NostrKeepSignerTheme.text)
 
                 Text(profile.displayNpub)
                     .font(.system(.caption, design: .monospaced))
-                    .foregroundStyle(NostrKeyTheme.textMuted)
+                    .foregroundStyle(NostrKeepSignerTheme.textMuted)
             }
         }
         .frame(maxWidth: .infinity)
         .padding(28)
         .background {
             RoundedRectangle(cornerRadius: 20)
-                .fill(NostrKeyTheme.bgLight)
+                .fill(NostrKeepSignerTheme.bgLight)
                 .overlay {
                     RoundedRectangle(cornerRadius: 20)
-                        .stroke(NostrKeyTheme.accent.opacity(0.3), lineWidth: 1)
+                        .stroke(NostrKeepSignerTheme.accent.opacity(0.3), lineWidth: 1)
                 }
         }
     }
@@ -103,31 +102,13 @@ struct IdentityCardView: View {
                 .font(.headline)
                 .frame(maxWidth: .infinity)
                 .padding()
-                .background(NostrKeyTheme.accent.opacity(0.15))
-                .foregroundStyle(NostrKeyTheme.accent)
+                .background(NostrKeepSignerTheme.accent.opacity(0.15))
+                .foregroundStyle(NostrKeepSignerTheme.accent)
                 .clipShape(RoundedRectangle(cornerRadius: 14))
             }
 
             // Add to Apple Wallet
-            Button {
-                showWalletPrompt = true
-            } label: {
-                HStack {
-                    Image(systemName: "wallet.pass")
-                    Text("Add to Apple Wallet")
-                }
-                .font(.headline)
-                .frame(maxWidth: .infinity)
-                .padding()
-                .background(.black)
-                .foregroundStyle(.white)
-                .clipShape(RoundedRectangle(cornerRadius: 14))
-            }
-            .alert("Apple Wallet", isPresented: $showWalletPrompt) {
-                Button("OK") { }
-            } message: {
-                Text("Apple Wallet pass generation requires a Pass Type ID certificate. This feature will be available once the pass signing service is deployed.")
-            }
+            AddToWalletButton()
 
             // Share
             ShareLink(
@@ -142,8 +123,8 @@ struct IdentityCardView: View {
                 .font(.headline)
                 .frame(maxWidth: .infinity)
                 .padding()
-                .background(NostrKeyTheme.bgLight)
-                .foregroundStyle(NostrKeyTheme.text)
+                .background(NostrKeepSignerTheme.bgLight)
+                .foregroundStyle(NostrKeepSignerTheme.text)
                 .clipShape(RoundedRectangle(cornerRadius: 14))
             }
         }
@@ -158,29 +139,29 @@ struct IdentityCardView: View {
                 .font(.caption)
                 .fontWeight(.semibold)
                 .textCase(.uppercase)
-                .foregroundStyle(NostrKeyTheme.textMuted)
+                .foregroundStyle(NostrKeepSignerTheme.textMuted)
 
             HStack {
                 Image(systemName: profile.isSecureEnclave ? "lock.shield.fill" : "lock.open")
-                    .foregroundStyle(profile.isSecureEnclave ? NostrKeyTheme.accent : NostrKeyTheme.orange)
+                    .foregroundStyle(profile.isSecureEnclave ? NostrKeepSignerTheme.accent : NostrKeepSignerTheme.orange)
 
                 VStack(alignment: .leading) {
                     Text(profile.isSecureEnclave ? "Hardware-Secured" : "Software Storage")
                         .font(.subheadline)
                         .fontWeight(.medium)
-                        .foregroundStyle(NostrKeyTheme.text)
+                        .foregroundStyle(NostrKeepSignerTheme.text)
 
                     Text(profile.isSecureEnclave
                          ? "Key protected by Secure Enclave + Face ID"
                          : "Key stored in Keychain without hardware isolation")
                         .font(.caption)
-                        .foregroundStyle(NostrKeyTheme.textMuted)
+                        .foregroundStyle(NostrKeepSignerTheme.textMuted)
                 }
 
                 Spacer()
             }
             .padding()
-            .background(NostrKeyTheme.bgLight)
+            .background(NostrKeepSignerTheme.bgLight)
             .clipShape(RoundedRectangle(cornerRadius: 12))
         }
     }

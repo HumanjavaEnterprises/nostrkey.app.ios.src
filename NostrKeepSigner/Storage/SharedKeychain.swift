@@ -7,8 +7,8 @@ import Security
 final class SharedKeychain {
     static let shared = SharedKeychain()
 
-    private let accessGroup = "H48PW6TC25.group.com.nostrkey"
-    private let servicePrefix = "nostrkey.nsec."
+    private let accessGroup = "H48PW6TC25.group.com.nostrkeep.signer"
+    private let servicePrefix = "nostrkeep.signer.nsec."
 
     private init() {}
 

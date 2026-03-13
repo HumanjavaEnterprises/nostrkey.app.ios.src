@@ -4,23 +4,23 @@ import LocalAuthentication
 import CryptoKit
 
 /// Manages Nostr key pairs with Keychain + Secure Enclave protection
-/// Keys are stored in the shared Keychain (group.com.nostrkey) so the
+/// Keys are stored in the shared Keychain (group.com.nostrkeep.signer) so the
 /// Safari extension can detect and delegate signing to them.
 class KeyManager {
 
     /// Service prefix matches the Safari extension's SharedKeychain.swift
     /// so both apps can read each other's keys from the shared Keychain.
-    private let servicePrefix = "nostrkey.nsec."
+    private let servicePrefix = "nostrkeep.signer.nsec."
 
     /// Team-prefixed access group — must match the Safari extension exactly.
     /// Keychain access groups require the team prefix at runtime (unlike
     /// entitlements which resolve $(AppIdentifierPrefix) at build time).
-    private let accessGroup = "H48PW6TC25.group.com.nostrkey"
+    private let accessGroup = "H48PW6TC25.group.com.nostrkeep.signer"
 
     /// App Group ID (without team prefix) for UserDefaults sharing.
     /// UserDefaults(suiteName:) uses the plain App Group ID, not the
     /// team-prefixed Keychain access group.
-    private let appGroupID = "group.com.nostrkey"
+    private let appGroupID = "group.com.nostrkeep.signer"
 
     /// Whether biometric authentication is available on this device
     private var biometricsAvailable: Bool {

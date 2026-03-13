@@ -1,6 +1,6 @@
 import Foundation
 
-/// Handles nostrkey:// and nostrconnect:// deep links
+/// Handles nostrkeepsigner:// and nostrconnect:// deep links
 @MainActor
 enum DeepLinkHandler {
 
@@ -8,8 +8,8 @@ enum DeepLinkHandler {
         guard let scheme = url.scheme?.lowercased() else { return }
 
         switch scheme {
-        case "nostrkey":
-            handleNostrKeyLink(url: url, appState: appState)
+        case "nostrkeepsigner":
+            handleNostrKeepSignerLink(url: url, appState: appState)
         case "nostrconnect":
             handleNostrConnect(url: url, appState: appState)
         default:
@@ -17,9 +17,9 @@ enum DeepLinkHandler {
         }
     }
 
-    // MARK: - nostrkey:// links
+    // MARK: - nostrkeepsigner:// links
 
-    private static func handleNostrKeyLink(url: URL, appState: AppState) {
+    private static func handleNostrKeepSignerLink(url: URL, appState: AppState) {
         guard let host = url.host?.lowercased() else { return }
         let params = url.queryParameters
 
@@ -41,7 +41,7 @@ enum DeepLinkHandler {
         }
     }
 
-    // MARK: - nostrkey://add-relay
+    // MARK: - nostrkeepsigner://add-relay
 
     private static func handleAddRelay(params: [String: String], appState: AppState) {
         guard let relayURL = params["url"] else { return }
@@ -53,7 +53,7 @@ enum DeepLinkHandler {
         appState.selectedTab = .relays
     }
 
-    // MARK: - nostrkey://connect (NIP-46)
+    // MARK: - nostrkeepsigner://connect (NIP-46)
 
     private static func handleConnect(params: [String: String], appState: AppState) {
         guard params["pubkey"] != nil,
@@ -76,7 +76,7 @@ enum DeepLinkHandler {
         appState.selectedTab = .scanner
     }
 
-    // MARK: - nostrkey://import-keys
+    // MARK: - nostrkeepsigner://import-keys
 
     private static func handleImportKeys(params: [String: String], appState: AppState) {
         guard let nsec = params["nsec"] else { return }
@@ -88,10 +88,10 @@ enum DeepLinkHandler {
         }
     }
 
-    // MARK: - nostrkey://wallet-pass
+    // MARK: - nostrkeepsigner://wallet-pass
 
     private static func handleWalletPass(params: [String: String], appState: AppState) {
-        // TODO: Generate or update Apple Wallet pass
+        // TODO: Trigger WalletPassManager.requestPass() from deep link (nostrkeepsigner://wallet-pass?npub=...)
         appState.selectedTab = .identity
     }
 }

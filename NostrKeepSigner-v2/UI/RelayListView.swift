@@ -12,22 +12,22 @@ struct RelayListView: View {
                 if appState.relays.isEmpty {
                     ContentUnavailableView {
                         Label("No Relays", systemImage: "network")
-                            .foregroundStyle(NostrKeyTheme.textMuted)
+                            .foregroundStyle(NostrKeepSignerTheme.textMuted)
                     } description: {
                         Text("Add a relay to connect to the Nostr network. Scan a QR code or add one manually.")
-                            .foregroundStyle(NostrKeyTheme.textMuted.opacity(0.7))
+                            .foregroundStyle(NostrKeepSignerTheme.textMuted.opacity(0.7))
                     }
                     .listRowBackground(Color.clear)
                 } else {
                     ForEach(appState.relays) { relay in
                         RelayRow(relay: relay)
-                            .listRowBackground(NostrKeyTheme.bgLight)
+                            .listRowBackground(NostrKeepSignerTheme.bgLight)
                     }
                     .onDelete(perform: appState.removeRelay)
                 }
             }
             .scrollContentBackground(.hidden)
-            .background(NostrKeyTheme.bg.ignoresSafeArea())
+            .background(NostrKeepSignerTheme.bg.ignoresSafeArea())
             .navigationTitle("Relays")
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
@@ -62,7 +62,7 @@ struct RelayRow: View {
     var body: some View {
         HStack(spacing: 12) {
             Circle()
-                .fill(relay.isConnected ? NostrKeyTheme.accent : .gray)
+                .fill(relay.isConnected ? NostrKeepSignerTheme.accent : .gray)
                 .frame(width: 8, height: 8)
 
             VStack(alignment: .leading, spacing: 2) {
@@ -70,22 +70,22 @@ struct RelayRow: View {
                     Text(relay.name)
                         .font(.body)
                         .fontWeight(.medium)
-                        .foregroundStyle(NostrKeyTheme.text)
+                        .foregroundStyle(NostrKeepSignerTheme.text)
 
                     if relay.paid {
                         Text("PAID")
                             .font(.system(size: 9, weight: .bold))
                             .padding(.horizontal, 5)
                             .padding(.vertical, 2)
-                            .background(NostrKeyTheme.orange.opacity(0.2))
-                            .foregroundStyle(NostrKeyTheme.orange)
+                            .background(NostrKeepSignerTheme.orange.opacity(0.2))
+                            .foregroundStyle(NostrKeepSignerTheme.orange)
                             .clipShape(Capsule())
                     }
                 }
 
                 Text(relay.url)
                     .font(.system(.caption, design: .monospaced))
-                    .foregroundStyle(NostrKeyTheme.textMuted)
+                    .foregroundStyle(NostrKeepSignerTheme.textMuted)
             }
 
             Spacer()
@@ -106,19 +106,19 @@ struct AddRelaySheet: View {
             VStack(spacing: 24) {
                 Text("Enter a relay WebSocket URL, or scan a QR code from the Scanner tab.")
                     .font(.subheadline)
-                    .foregroundStyle(NostrKeyTheme.textMuted)
+                    .foregroundStyle(NostrKeepSignerTheme.textMuted)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal)
 
                 TextField("wss://relay.example.com", text: $relayURL)
                     .font(.system(.body, design: .monospaced))
                     .padding()
-                    .background(NostrKeyTheme.bgLight)
-                    .foregroundStyle(NostrKeyTheme.text)
+                    .background(NostrKeepSignerTheme.bgLight)
+                    .foregroundStyle(NostrKeepSignerTheme.text)
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                     .overlay {
                         RoundedRectangle(cornerRadius: 10)
-                            .stroke(NostrKeyTheme.accent.opacity(0.3), lineWidth: 1)
+                            .stroke(NostrKeepSignerTheme.accent.opacity(0.3), lineWidth: 1)
                     }
                     .autocorrectionDisabled()
                     .textInputAutocapitalization(.never)
@@ -131,8 +131,8 @@ struct AddRelaySheet: View {
                 .font(.headline)
                 .frame(maxWidth: .infinity)
                 .padding()
-                .background(relayURL.isEmpty ? NostrKeyTheme.bgLight : NostrKeyTheme.accent)
-                .foregroundStyle(relayURL.isEmpty ? NostrKeyTheme.textMuted : NostrKeyTheme.bg)
+                .background(relayURL.isEmpty ? NostrKeepSignerTheme.bgLight : NostrKeepSignerTheme.accent)
+                .foregroundStyle(relayURL.isEmpty ? NostrKeepSignerTheme.textMuted : NostrKeepSignerTheme.bg)
                 .clipShape(RoundedRectangle(cornerRadius: 14))
                 .padding(.horizontal)
                 .disabled(relayURL.isEmpty)
@@ -140,7 +140,7 @@ struct AddRelaySheet: View {
                 Spacer()
             }
             .padding(.top, 24)
-            .background(NostrKeyTheme.bg.ignoresSafeArea())
+            .background(NostrKeepSignerTheme.bg.ignoresSafeArea())
             .navigationTitle("Add Relay")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

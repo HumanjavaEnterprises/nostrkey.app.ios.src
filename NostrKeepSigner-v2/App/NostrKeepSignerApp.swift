@@ -1,7 +1,7 @@
 import SwiftUI
 
 @main
-struct NostrKeyApp: App {
+struct NostrKeepSignerApp: App {
     @StateObject private var appState = AppState()
 
     var body: some Scene {

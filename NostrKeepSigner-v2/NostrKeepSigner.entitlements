@@ -4,11 +4,11 @@
 <dict>
 	<key>com.apple.security.application-groups</key>
 	<array>
-		<string>group.com.nostrkey</string>
+		<string>group.com.nostrkeep.signer</string>
 	</array>
 	<key>keychain-access-groups</key>
 	<array>
-		<string>$(AppIdentifierPrefix)group.com.nostrkey</string>
+		<string>$(AppIdentifierPrefix)group.com.nostrkeep.signer</string>
 	</array>
 </dict>
 </plist>

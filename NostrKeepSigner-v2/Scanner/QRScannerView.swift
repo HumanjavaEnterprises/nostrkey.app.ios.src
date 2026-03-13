@@ -125,23 +125,23 @@ struct ScannerView: View {
 
             Image(systemName: "camera.fill")
                 .font(.system(size: 64))
-                .foregroundStyle(NostrKeyTheme.accent)
+                .foregroundStyle(NostrKeepSignerTheme.accent)
 
             Text("Scanner Not Available")
                 .font(.title2)
                 .fontWeight(.bold)
-                .foregroundStyle(NostrKeyTheme.text)
+                .foregroundStyle(NostrKeepSignerTheme.text)
 
             Text("This device does not support camera scanning.")
                 .font(.subheadline)
-                .foregroundStyle(NostrKeyTheme.textMuted)
+                .foregroundStyle(NostrKeepSignerTheme.textMuted)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 40)
 
             Spacer()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(NostrKeyTheme.bg)
+        .background(NostrKeepSignerTheme.bg)
     }
 
     private func scannerErrorOverlay(_ error: String) -> some View {
@@ -174,8 +174,8 @@ struct ScannerView: View {
                 }
                 scannedCode = nil
             }
-        } else if code.hasPrefix("nostrkey://") {
-            // Parse nostrkey:// deep links — route add-relay to confirmation sheet
+        } else if code.hasPrefix("nostrkeepsigner://") {
+            // Parse nostrkeepsigner:// deep links — route add-relay to confirmation sheet
             if let url = URL(string: code) {
                 let params = url.queryParameters
                 if url.host?.lowercased() == "add-relay", let relayURL = params["url"] {
@@ -343,31 +343,31 @@ struct ScanResultSheet: View {
 
                     Image(systemName: "network")
                         .font(.system(size: 48))
-                        .foregroundStyle(NostrKeyTheme.accent)
+                        .foregroundStyle(NostrKeepSignerTheme.accent)
 
                     Text("Add Relay?")
                         .font(.title2)
                         .fontWeight(.bold)
-                        .foregroundStyle(NostrKeyTheme.text)
+                        .foregroundStyle(NostrKeepSignerTheme.text)
 
                     // Relay details card
                     VStack(spacing: 12) {
                         // Host name
                         HStack {
                             Image(systemName: "server.rack")
-                                .foregroundStyle(NostrKeyTheme.accent)
+                                .foregroundStyle(NostrKeepSignerTheme.accent)
                             Text(displayHost)
                                 .font(.headline)
-                                .foregroundStyle(NostrKeyTheme.text)
+                                .foregroundStyle(NostrKeepSignerTheme.text)
                             Spacer()
                             if paid {
                                 Text("Paid")
                                     .font(.caption)
                                     .fontWeight(.semibold)
-                                    .foregroundStyle(NostrKeyTheme.orange)
+                                    .foregroundStyle(NostrKeepSignerTheme.orange)
                                     .padding(.horizontal, 8)
                                     .padding(.vertical, 4)
-                                    .background(NostrKeyTheme.orange.opacity(0.15))
+                                    .background(NostrKeepSignerTheme.orange.opacity(0.15))
                                     .clipShape(Capsule())
                             }
                         }
@@ -376,7 +376,7 @@ struct ScanResultSheet: View {
                         HStack {
                             Text(url)
                                 .font(.system(.caption, design: .monospaced))
-                                .foregroundStyle(NostrKeyTheme.textMuted)
+                                .foregroundStyle(NostrKeepSignerTheme.textMuted)
                                 .lineLimit(1)
                             Spacer()
                         }
@@ -386,26 +386,26 @@ struct ScanResultSheet: View {
                             HStack {
                                 Text("Name:")
                                     .font(.caption)
-                                    .foregroundStyle(NostrKeyTheme.textMuted)
+                                    .foregroundStyle(NostrKeepSignerTheme.textMuted)
                                 Text(name)
                                     .font(.caption)
-                                    .foregroundStyle(NostrKeyTheme.text)
+                                    .foregroundStyle(NostrKeepSignerTheme.text)
                                 Spacer()
                             }
                         }
                     }
                     .padding(16)
-                    .background(NostrKeyTheme.bgLight)
+                    .background(NostrKeepSignerTheme.bgLight)
                     .clipShape(RoundedRectangle(cornerRadius: 12))
                     .padding(.horizontal, 4)
 
                     if isDuplicate {
                         HStack(spacing: 6) {
                             Image(systemName: "checkmark.circle.fill")
-                                .foregroundStyle(NostrKeyTheme.accent)
+                                .foregroundStyle(NostrKeepSignerTheme.accent)
                             Text("This relay is already in your list.")
                                 .font(.subheadline)
-                                .foregroundStyle(NostrKeyTheme.textMuted)
+                                .foregroundStyle(NostrKeepSignerTheme.textMuted)
                         }
                     }
 
@@ -422,23 +422,23 @@ struct ScanResultSheet: View {
                     .font(.headline)
                     .padding(.horizontal, 32)
                     .padding(.vertical, 12)
-                    .background(NostrKeyTheme.accent)
-                    .foregroundStyle(NostrKeyTheme.bg)
+                    .background(NostrKeepSignerTheme.accent)
+                    .foregroundStyle(NostrKeepSignerTheme.bg)
                     .clipShape(RoundedRectangle(cornerRadius: 12))
 
                 case .importKey(let nsec):
                     Image(systemName: "key.fill")
                         .font(.system(size: 48))
-                        .foregroundStyle(NostrKeyTheme.orange)
+                        .foregroundStyle(NostrKeepSignerTheme.orange)
 
                     Text("Import Key?")
                         .font(.title2)
                         .fontWeight(.bold)
-                        .foregroundStyle(NostrKeyTheme.text)
+                        .foregroundStyle(NostrKeepSignerTheme.text)
 
                     Text("This will store the private key in the Secure Enclave on this device.")
                         .font(.subheadline)
-                        .foregroundStyle(NostrKeyTheme.textMuted)
+                        .foregroundStyle(NostrKeepSignerTheme.textMuted)
                         .multilineTextAlignment(.center)
 
                     Button("Import Key") {
@@ -453,50 +453,50 @@ struct ScanResultSheet: View {
                     .font(.headline)
                     .padding(.horizontal, 32)
                     .padding(.vertical, 12)
-                    .background(NostrKeyTheme.orange)
-                    .foregroundStyle(NostrKeyTheme.bg)
+                    .background(NostrKeepSignerTheme.orange)
+                    .foregroundStyle(NostrKeepSignerTheme.bg)
                     .clipShape(RoundedRectangle(cornerRadius: 12))
 
                 case .viewProfile(let npub):
                     Image(systemName: "person.crop.circle")
                         .font(.system(size: 48))
-                        .foregroundStyle(NostrKeyTheme.cyan)
+                        .foregroundStyle(NostrKeepSignerTheme.cyan)
 
                     Text("Nostr Profile")
                         .font(.title2)
                         .fontWeight(.bold)
-                        .foregroundStyle(NostrKeyTheme.text)
+                        .foregroundStyle(NostrKeepSignerTheme.text)
 
                     Text(npub)
                         .font(.system(.caption, design: .monospaced))
-                        .foregroundStyle(NostrKeyTheme.textMuted)
+                        .foregroundStyle(NostrKeepSignerTheme.textMuted)
                         .lineLimit(2)
                         .multilineTextAlignment(.center)
 
                 case .nip46Connect(let pubkey, let relay):
                     Image(systemName: "link.badge.plus")
                         .font(.system(size: 48))
-                        .foregroundStyle(NostrKeyTheme.accent)
+                        .foregroundStyle(NostrKeepSignerTheme.accent)
 
                     Text("Connect to App?")
                         .font(.title2)
                         .fontWeight(.bold)
-                        .foregroundStyle(NostrKeyTheme.text)
+                        .foregroundStyle(NostrKeepSignerTheme.text)
 
                     VStack(spacing: 8) {
                         Text("App pubkey:")
                             .font(.caption)
-                            .foregroundStyle(NostrKeyTheme.textMuted)
+                            .foregroundStyle(NostrKeepSignerTheme.textMuted)
                         Text(String(pubkey.prefix(16)) + "..." + String(pubkey.suffix(8)))
                             .font(.system(.caption, design: .monospaced))
-                            .foregroundStyle(NostrKeyTheme.textMuted)
+                            .foregroundStyle(NostrKeepSignerTheme.textMuted)
 
                         Text("Relay:")
                             .font(.caption)
-                            .foregroundStyle(NostrKeyTheme.textMuted)
+                            .foregroundStyle(NostrKeepSignerTheme.textMuted)
                         Text(relay)
                             .font(.system(.caption, design: .monospaced))
-                            .foregroundStyle(NostrKeyTheme.textMuted)
+                            .foregroundStyle(NostrKeepSignerTheme.textMuted)
                     }
 
                     Button("Connect") {
@@ -506,23 +506,23 @@ struct ScanResultSheet: View {
                     .font(.headline)
                     .padding(.horizontal, 32)
                     .padding(.vertical, 12)
-                    .background(NostrKeyTheme.accent)
-                    .foregroundStyle(NostrKeyTheme.bg)
+                    .background(NostrKeepSignerTheme.accent)
+                    .foregroundStyle(NostrKeepSignerTheme.bg)
                     .clipShape(RoundedRectangle(cornerRadius: 12))
 
                 case .unknown(let content):
                     Image(systemName: "questionmark.circle")
                         .font(.system(size: 48))
-                        .foregroundStyle(NostrKeyTheme.textMuted)
+                        .foregroundStyle(NostrKeepSignerTheme.textMuted)
 
                     Text("Unknown QR Code")
                         .font(.title2)
                         .fontWeight(.bold)
-                        .foregroundStyle(NostrKeyTheme.text)
+                        .foregroundStyle(NostrKeepSignerTheme.text)
 
                     Text(String(content.prefix(200)))
                         .font(.caption)
-                        .foregroundStyle(NostrKeyTheme.textMuted)
+                        .foregroundStyle(NostrKeepSignerTheme.textMuted)
                         .lineLimit(5)
                 }
 
@@ -530,12 +530,12 @@ struct ScanResultSheet: View {
             }
             .padding(24)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(NostrKeyTheme.bg.ignoresSafeArea())
+            .background(NostrKeepSignerTheme.bg.ignoresSafeArea())
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Close") { dismiss() }
-                        .foregroundStyle(NostrKeyTheme.textMuted)
+                        .foregroundStyle(NostrKeepSignerTheme.textMuted)
                 }
             }
         }

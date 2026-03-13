@@ -1,5 +1,5 @@
 /**
- * NostrKey Popup - Vanilla JS (CSP-safe)
+ * NostrKeep Signer Popup - Vanilla JS (CSP-safe)
  */
 
 import {
@@ -248,7 +248,7 @@ function bindEvents() {
 
 // Initialize
 async function init() {
-    console.log('NostrKey Popup initializing...');
+    console.log('NostrKeep Signer Popup initializing...');
     initElements();
     bindEvents();
 

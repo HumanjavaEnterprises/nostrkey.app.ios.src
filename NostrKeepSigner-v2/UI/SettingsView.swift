@@ -14,17 +14,17 @@ struct SettingsView: View {
                     Section("Active Identity") {
                         HStack {
                             Image(systemName: "person.crop.circle.fill")
-                                .foregroundStyle(NostrKeyTheme.accent)
+                                .foregroundStyle(NostrKeepSignerTheme.accent)
                             VStack(alignment: .leading) {
                                 Text(profile.name)
                                     .fontWeight(.medium)
-                                    .foregroundStyle(NostrKeyTheme.text)
+                                    .foregroundStyle(NostrKeepSignerTheme.text)
                                 Text(profile.displayNpub)
                                     .font(.caption)
-                                    .foregroundStyle(NostrKeyTheme.textMuted)
+                                    .foregroundStyle(NostrKeepSignerTheme.textMuted)
                             }
                         }
-                        .listRowBackground(NostrKeyTheme.bgLight)
+                        .listRowBackground(NostrKeepSignerTheme.bgLight)
                     }
                 }
 
@@ -32,50 +32,50 @@ struct SettingsView: View {
                 Section("Security") {
                     HStack {
                         Image(systemName: "lock.shield.fill")
-                            .foregroundStyle(NostrKeyTheme.accent)
+                            .foregroundStyle(NostrKeepSignerTheme.accent)
                         Text("Secure Enclave")
-                            .foregroundStyle(NostrKeyTheme.text)
+                            .foregroundStyle(NostrKeepSignerTheme.text)
                         Spacer()
                         Text(appState.activeProfile?.isSecureEnclave == true ? "Active" : "Inactive")
-                            .foregroundStyle(NostrKeyTheme.textMuted)
+                            .foregroundStyle(NostrKeepSignerTheme.textMuted)
                     }
-                    .listRowBackground(NostrKeyTheme.bgLight)
+                    .listRowBackground(NostrKeepSignerTheme.bgLight)
 
                     HStack {
                         Image(systemName: "faceid")
-                            .foregroundStyle(NostrKeyTheme.cyan)
+                            .foregroundStyle(NostrKeepSignerTheme.cyan)
                         Text("Biometric Authentication")
-                            .foregroundStyle(NostrKeyTheme.text)
+                            .foregroundStyle(NostrKeepSignerTheme.text)
                         Spacer()
                         Text("Required for signing")
                             .font(.caption)
-                            .foregroundStyle(NostrKeyTheme.textMuted)
+                            .foregroundStyle(NostrKeepSignerTheme.textMuted)
                     }
-                    .listRowBackground(NostrKeyTheme.bgLight)
+                    .listRowBackground(NostrKeepSignerTheme.bgLight)
                 }
 
                 // Connected Sessions
                 Section("NIP-46 Sessions") {
                     if appState.activeSessions.isEmpty {
                         Text("No active sessions")
-                            .foregroundStyle(NostrKeyTheme.textMuted)
-                            .listRowBackground(NostrKeyTheme.bgLight)
+                            .foregroundStyle(NostrKeepSignerTheme.textMuted)
+                            .listRowBackground(NostrKeepSignerTheme.bgLight)
                     } else {
                         ForEach(appState.activeSessions) { session in
                             HStack {
                                 Circle()
-                                    .fill(session.isActive ? NostrKeyTheme.accent : NostrKeyTheme.textMuted)
+                                    .fill(session.isActive ? NostrKeepSignerTheme.accent : NostrKeepSignerTheme.textMuted)
                                     .frame(width: 8, height: 8)
                                 VStack(alignment: .leading) {
                                     Text(session.appName ?? "Unknown App")
                                         .fontWeight(.medium)
-                                        .foregroundStyle(NostrKeyTheme.text)
+                                        .foregroundStyle(NostrKeepSignerTheme.text)
                                     Text(session.relayURL)
                                         .font(.caption)
-                                        .foregroundStyle(NostrKeyTheme.textMuted)
+                                        .foregroundStyle(NostrKeepSignerTheme.textMuted)
                                 }
                             }
-                            .listRowBackground(NostrKeyTheme.bgLight)
+                            .listRowBackground(NostrKeepSignerTheme.bgLight)
                         }
                     }
                 }
@@ -89,9 +89,9 @@ struct SettingsView: View {
                             Image(systemName: "square.and.arrow.up")
                             Text("Export Keys (nsec)")
                         }
-                        .foregroundStyle(NostrKeyTheme.orange)
+                        .foregroundStyle(NostrKeepSignerTheme.orange)
                     }
-                    .listRowBackground(NostrKeyTheme.bgLight)
+                    .listRowBackground(NostrKeepSignerTheme.bgLight)
 
                     NavigationLink {
                         ProfileListView()
@@ -99,48 +99,48 @@ struct SettingsView: View {
                         HStack {
                             Image(systemName: "person.2")
                             Text("Manage Profiles")
-                                .foregroundStyle(NostrKeyTheme.text)
+                                .foregroundStyle(NostrKeepSignerTheme.text)
                         }
                     }
-                    .listRowBackground(NostrKeyTheme.bgLight)
+                    .listRowBackground(NostrKeepSignerTheme.bgLight)
                 }
 
                 // About
                 Section("About") {
                     HStack {
                         Text("Version")
-                            .foregroundStyle(NostrKeyTheme.text)
+                            .foregroundStyle(NostrKeepSignerTheme.text)
                         Spacer()
                         Text("2.0.0 (1)")
-                            .foregroundStyle(NostrKeyTheme.textMuted)
+                            .foregroundStyle(NostrKeepSignerTheme.textMuted)
                     }
-                    .listRowBackground(NostrKeyTheme.bgLight)
+                    .listRowBackground(NostrKeepSignerTheme.bgLight)
 
-                    Link(destination: URL(string: "https://nostrkey.com")!) {
+                    Link(destination: URL(string: "https://nostrkeep.com")!) {
                         HStack {
                             Text("Website")
-                                .foregroundStyle(NostrKeyTheme.text)
+                                .foregroundStyle(NostrKeepSignerTheme.text)
                             Spacer()
                             Image(systemName: "arrow.up.right.square")
-                                .foregroundStyle(NostrKeyTheme.textMuted)
+                                .foregroundStyle(NostrKeepSignerTheme.textMuted)
                         }
                     }
-                    .listRowBackground(NostrKeyTheme.bgLight)
+                    .listRowBackground(NostrKeepSignerTheme.bgLight)
 
-                    Link(destination: URL(string: "https://github.com/ArcadeLabsInc/nostrkey")!) {
+                    Link(destination: URL(string: "https://github.com/HumanjavaEnterprises/nostrkeep-signer-ios")!) {
                         HStack {
                             Text("Source Code")
-                                .foregroundStyle(NostrKeyTheme.text)
+                                .foregroundStyle(NostrKeepSignerTheme.text)
                             Spacer()
                             Image(systemName: "arrow.up.right.square")
-                                .foregroundStyle(NostrKeyTheme.textMuted)
+                                .foregroundStyle(NostrKeepSignerTheme.textMuted)
                         }
                     }
-                    .listRowBackground(NostrKeyTheme.bgLight)
+                    .listRowBackground(NostrKeepSignerTheme.bgLight)
                 }
             }
             .scrollContentBackground(.hidden)
-            .background(NostrKeyTheme.bg.ignoresSafeArea())
+            .background(NostrKeepSignerTheme.bg.ignoresSafeArea())
             .navigationTitle("Settings")
             .alert("Export Warning", isPresented: $showExportWarning) {
                 Button("Cancel", role: .cancel) { }
@@ -166,28 +166,28 @@ struct ProfileListView: View {
                     VStack(alignment: .leading) {
                         Text(profile.name)
                             .fontWeight(.medium)
-                            .foregroundStyle(NostrKeyTheme.text)
+                            .foregroundStyle(NostrKeepSignerTheme.text)
                         Text(profile.displayNpub)
                             .font(.caption)
-                            .foregroundStyle(NostrKeyTheme.textMuted)
+                            .foregroundStyle(NostrKeepSignerTheme.textMuted)
                     }
 
                     Spacer()
 
                     if profile.isActive {
                         Image(systemName: "checkmark.circle.fill")
-                            .foregroundStyle(NostrKeyTheme.accent)
+                            .foregroundStyle(NostrKeepSignerTheme.accent)
                     }
                 }
                 .contentShape(Rectangle())
                 .onTapGesture {
                     setActiveProfile(profile)
                 }
-                .listRowBackground(NostrKeyTheme.bgLight)
+                .listRowBackground(NostrKeepSignerTheme.bgLight)
             }
         }
         .scrollContentBackground(.hidden)
-        .background(NostrKeyTheme.bg.ignoresSafeArea())
+        .background(NostrKeepSignerTheme.bg.ignoresSafeArea())
         .navigationTitle("Profiles")
     }
 

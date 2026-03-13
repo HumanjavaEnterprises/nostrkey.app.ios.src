@@ -1,6 +1,6 @@
 {
     "extension_name": {
-        "message": "NostrKey",
+        "message": "NostrKeep Signer",
         "description": "The extension display name."
     },
     "extension_description": {

@@ -16,8 +16,8 @@ jobs:
       - name: Build
         run: |
           xcodebuild build \
-            -project NostrKey.xcodeproj \
-            -scheme NostrKey \
+            -project NostrKeepSigner.xcodeproj \
+            -scheme NostrKeepSigner \
             -configuration Debug \
             -destination 'generic/platform=iOS Simulator' \
             CODE_SIGN_IDENTITY="" \

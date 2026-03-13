@@ -573,5 +573,5 @@
         });
     });
 
-    console.log('[NostrKey iOS] polyfill loaded');
+    console.log('[NostrKeep Signer iOS] polyfill loaded');
 })();

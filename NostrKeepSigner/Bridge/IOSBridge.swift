@@ -20,7 +20,7 @@ class IOSBridge: NSObject, WKScriptMessageHandler {
     private let onScanQR: (() -> Void)?
 
     private var pendingScanCallbackId: String?
-    private let storageKey = "nostrkey_storage"
+    private let storageKey = "nostrkeep_signer_storage"
     private let dataKey = "__data__"
 
     init(

@@ -36,7 +36,7 @@ class ProfileManager {
     private let cacheKey = "profile_metadata_cache"
 
     private var sharedDefaults: UserDefaults? {
-        UserDefaults(suiteName: "group.com.nostrkey")
+        UserDefaults(suiteName: "group.com.nostrkeep.signer")
     }
 
     func loadCache() {

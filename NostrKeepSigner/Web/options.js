@@ -1,5 +1,5 @@
 /**
- * NostrKey Full Settings - Vanilla JS (CSP-safe)
+ * NostrKeep Signer Full Settings - Vanilla JS (CSP-safe)
  */
 
 import {
@@ -1424,7 +1424,7 @@ function bindEvents() {
 
 // Initialize
 async function init() {
-    console.log('NostrKey Full Settings initializing...');
+    console.log('NostrKeep Signer Full Settings initializing...');
     
     await initialize();
     

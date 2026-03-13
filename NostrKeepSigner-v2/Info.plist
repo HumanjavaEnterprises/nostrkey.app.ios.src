@@ -5,7 +5,7 @@
     <key>CFBundleDevelopmentRegion</key>
     <string>en</string>
     <key>CFBundleDisplayName</key>
-    <string>NostrKey</string>
+    <string>NostrKeep Signer</string>
     <key>CFBundleExecutable</key>
     <string>$(EXECUTABLE_NAME)</string>
     <key>CFBundleIdentifier</key>
@@ -25,11 +25,11 @@
 
     <!-- Camera permission for QR scanning (primary interface) -->
     <key>NSCameraUsageDescription</key>
-    <string>NostrKey uses the camera to scan QR codes for authentication, relay connections, and key import.</string>
+    <string>NostrKeep Signer uses the camera to scan QR codes for authentication, relay connections, and key import.</string>
 
     <!-- Face ID permission for key signing -->
     <key>NSFaceIDUsageDescription</key>
-    <string>NostrKey uses Face ID to authorize signing operations with your private key.</string>
+    <string>NostrKeep Signer uses Face ID to authorize signing operations with your private key.</string>
 
     <!-- Dark mode by default -->
     <key>UIUserInterfaceStyle</key>
@@ -69,10 +69,10 @@
     <array>
         <dict>
             <key>CFBundleURLName</key>
-            <string>com.nostrkey.authenticator</string>
+            <string>com.nostrkeep.signer</string>
             <key>CFBundleURLSchemes</key>
             <array>
-                <string>nostrkey</string>
+                <string>nostrkeepsigner</string>
                 <string>nostrconnect</string>
             </array>
         </dict>

@@ -48,8 +48,8 @@
       "title": "Lock Screen",
       "description": "Lock screen with profile card, npub, toggle, Show QR button",
       "pre_actions": [
-        { "type": "terminate", "bundle_id": "com.nostrkey.app" },
-        { "type": "launch", "bundle_id": "com.nostrkey.app" },
+        { "type": "terminate", "bundle_id": "com.nostrkeep.signer" },
+        { "type": "launch", "bundle_id": "com.nostrkeep.signer" },
         { "type": "wait", "seconds": 3 }
       ],
       "action": { "type": "none" },
